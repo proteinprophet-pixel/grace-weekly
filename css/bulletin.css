@@ -1,48 +1,48 @@
 /* ==========================================================================
-   Bulletin.css - Warm Liturgical Editorial Style for Grace Weekly
-   Rich ecclesiastical colors: Royal Navy, Warm Liturgical Wine, Antique Gold,
-   Forest Emerald, and sunlit parchment papers.
+   Bulletin.css - HanYoung Presbyterian Church Smart Mobile Bulletin
+   Anti-AI Warm Editorial & Analog Church Design Style
+   Primary: HanYoung Navy (#234B73), Warm Off-White Paper (#FBFBF8),
+   Charcoal Ink (#202224), Antique Gold (#C5A059), Liturgical Wine (#871F36)
    ========================================================================== */
 
 :root {
-  /* Rich Liturgical Palette */
-  --bg-page: #F3ECE2;
-  --bg-paper: #FFFDF9;
+  /* Warm Paper Palette */
+  --bg-page: #F5EFEB;
+  --bg-paper: #FBFBF8;
   --bg-paper-warm: #FAF4E8;
   --bg-card: #FFFFFF;
   
-  /* Primary Text & Accents */
-  --color-text: #222624;
+  /* Primary Text & Ink */
+  --color-text: #202224;
   --color-subtext: #4E5551;
   --color-muted: #78817B;
 
-  /* Liturgical Core Colors */
-  --color-navy: #15325B;         /* 주일 2부 대예배, 권위 */
-  --color-navy-light: #2A4C7E;
+  /* HanYoung Church Colors */
+  --color-hanyoung-navy: #234B73;   /* 한영교회 시그니처 네이비 */
+  --color-hanyoung-navy-dark: #16324F;
   --color-navy-pale: #EDF3F9;
 
-  --color-wine: #871F36;         /* 1부 임마누엘 찬양대, 성찬, 은혜 */
-  --color-wine-light: #A32844;
+  --color-wine: #871F36;             /* 성찬, 임마누엘 찬양대 */
   --color-wine-pale: #FDF1F3;
 
-  --color-gold: #B38324;         /* 말씀, 영광, 금박 테두리 */
+  --color-gold: #B38324;             /* 거룩, 표어, 금박 */
   --color-gold-bright: #D4A034;
   --color-gold-pale: #FDF8EC;
   --color-gold-border: #DFBF77;
 
-  --color-emerald: #1B6841;      /* 생명, 헌신, 봉사 */
+  --color-emerald: #1B6841;          /* 헌금 복사, 생명 */
   --color-emerald-pale: #EEF7F2;
 
-  --color-amber: #9E5B10;        /* 수요예배, 특송 */
+  --color-amber: #9E5B10;            /* 헵시바 찬양대, 수요 */
   --color-amber-pale: #FEF6EB;
 
-  --color-purple: #55347A;       /* 청년부, 영성 */
+  --color-purple: #55347A;           /* 청년회 */
   --color-purple-pale: #F5EFFB;
 
-  --color-border: #E8DFCF;
+  --color-border: #E6DFCF;
   --color-border-dark: #BDB29F;
 
-  /* Spacing */
+  /* Base Spacing */
   --space-2xs: 0.25rem;
   --space-xs: 0.5rem;
   --space-sm: 0.75rem;
@@ -50,10 +50,9 @@
   --space-lg: 2rem;
   --space-xl: 3rem;
 
-  /* Shadows (Subtle, warm depth) */
-  --shadow-paper: 0 4px 20px rgba(60, 45, 30, 0.08), 0 1px 3px rgba(60, 45, 30, 0.05);
-  --shadow-card: 0 2px 8px rgba(60, 45, 30, 0.06);
-  --shadow-hover: 0 6px 16px rgba(60, 45, 30, 0.12);
+  /* Shadows */
+  --shadow-paper: 0 4px 20px rgba(50, 40, 30, 0.08), 0 1px 3px rgba(50, 40, 30, 0.04);
+  --shadow-card: 0 2px 8px rgba(50, 40, 30, 0.05);
 
   /* Radius */
   --radius-xs: 3px;
@@ -82,18 +81,20 @@ body {
   background-position: 0 0, 14px 14px;
 }
 
-/* Accessibility: Senior Utility Floating Header */
+/* ==========================================================================
+   Top Senior Utility & Accessibility Bar (Sticky)
+   ========================================================================== */
 .top-accessibility-bar {
   position: sticky;
   top: 0;
   z-index: 100;
   width: 100%;
   max-width: 900px;
-  background: rgba(255, 253, 249, 0.96);
+  background: rgba(251, 251, 248, 0.96);
   backdrop-filter: blur(10px);
   border-bottom: 2px solid var(--color-border);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
-  padding: 8px 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  padding: 8px 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -102,64 +103,87 @@ body {
 .top-bar-left {
   display: flex;
   align-items: center;
-  gap: var(--space-xs);
+  gap: 8px;
 }
 
 .top-bar-church-badge {
   font-family: var(--font-serif);
   font-size: var(--text-sm);
   font-weight: var(--fw-bold);
-  color: var(--color-navy);
+  color: var(--color-hanyoung-navy);
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
 .top-bar-church-badge img {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
 }
 
 .top-bar-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .btn-pill {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 6px 14px;
-  border-radius: 20px;
+  gap: 4px;
+  padding: 5px 12px;
+  border-radius: 18px;
   font-size: var(--text-xs);
   font-weight: var(--fw-bold);
   border: 1px solid var(--color-border-dark);
   background: #FFFFFF;
-  color: var(--color-navy);
+  color: var(--color-hanyoung-navy);
   cursor: pointer;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  transition: all 0.15s ease;
   text-decoration: none;
 }
 
 .btn-pill:hover {
   background: var(--color-navy-pale);
-  color: var(--color-navy);
-  border-color: var(--color-navy);
+  color: var(--color-hanyoung-navy);
+  border-color: var(--color-hanyoung-navy);
 }
 
 .btn-pill.active {
   background: var(--color-wine);
   color: #FFFFFF;
   border-color: var(--color-wine);
-  box-shadow: 0 2px 6px rgba(135, 31, 54, 0.25);
 }
 
-/* Main Bulletin Container (Folded Folio Paper Style) */
+.font-zoom-group {
+  display: inline-flex;
+  border: 1px solid var(--color-border-dark);
+  border-radius: 18px;
+  overflow: hidden;
+  background: #FFFFFF;
+}
+
+.font-zoom-btn {
+  padding: 4px 8px;
+  border: none;
+  background: none;
+  font-size: var(--text-xs);
+  font-weight: var(--fw-bold);
+  color: var(--color-hanyoung-navy);
+  cursor: pointer;
+}
+
+.font-zoom-btn:hover {
+  background: var(--color-navy-pale);
+}
+
+/* ==========================================================================
+   Main Bulletin Folio Container
+   ========================================================================== */
 .bulletin-container {
   width: 100%;
-  max-width: 860px;
+  max-width: 880px;
   background-color: var(--bg-paper);
   box-shadow: var(--shadow-paper);
   margin: var(--space-md) auto;
@@ -169,9 +193,8 @@ body {
   overflow: hidden;
 }
 
-/* Traditional Double Border Print Treatment with Gold Accent */
 .bulletin-inner {
-  padding: var(--space-lg) var(--space-md);
+  padding: var(--space-md) var(--space-sm);
   border: 2px solid var(--color-border);
   outline: 1px solid var(--color-gold-border);
   outline-offset: -5px;
@@ -187,12 +210,12 @@ body {
 }
 
 /* ==========================================================================
-   1. Cover Header (주보 표지 헤더)
+   1. Cover Header (한영교회 표지)
    ========================================================================== */
 .cover-header {
   text-align: center;
-  padding-bottom: var(--space-lg);
-  border-bottom: 2px solid var(--color-navy);
+  padding-bottom: var(--space-md);
+  border-bottom: 2px solid var(--color-hanyoung-navy);
   position: relative;
 }
 
@@ -203,24 +226,18 @@ body {
   font-size: var(--text-xs);
   font-weight: var(--fw-semibold);
   color: var(--color-subtext);
-  letter-spacing: 0.05em;
   padding: 6px 12px;
   background: var(--bg-paper-warm);
   border-radius: var(--radius-xs);
   border: 1px solid var(--color-border);
-  margin-bottom: var(--space-md);
-}
-
-.cover-meta-row span:nth-child(2) {
-  color: var(--color-wine);
-  font-weight: var(--fw-bold);
+  margin-bottom: var(--space-sm);
 }
 
 .emblem-wrapper {
   margin: 0 auto var(--space-xs);
-  width: 72px;
-  height: 72px;
-  filter: drop-shadow(0 2px 6px rgba(21, 50, 91, 0.15));
+  width: 76px;
+  height: 76px;
+  filter: drop-shadow(0 2px 6px rgba(35, 75, 115, 0.15));
 }
 
 .emblem-wrapper img {
@@ -229,114 +246,220 @@ body {
   display: block;
 }
 
+.denomination-label {
+  font-size: var(--text-xs);
+  font-weight: var(--fw-bold);
+  color: var(--color-muted);
+  letter-spacing: 0.15em;
+  margin-bottom: 2px;
+}
+
 .church-title-kr {
   font-family: var(--font-serif);
   font-size: var(--text-3xl);
   font-weight: var(--fw-bold);
-  color: var(--color-navy);
-  letter-spacing: 0.15em;
+  color: var(--color-hanyoung-navy);
+  letter-spacing: 0.12em;
   margin-bottom: 2px;
-  text-shadow: 0 1px 1px rgba(0,0,0,0.05);
 }
 
 .church-title-en {
   font-size: var(--text-xs);
-  letter-spacing: 0.3em;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--color-gold);
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-sm);
   font-weight: var(--fw-bold);
 }
 
-/* Annual Church Theme Ribbon (Rich Royal Navy & Gold Banner) */
+.senior-pastor-tag {
+  display: inline-block;
+  font-size: var(--text-sm);
+  font-weight: var(--fw-bold);
+  color: var(--color-hanyoung-navy-dark);
+  background: var(--color-gold-pale);
+  border: 1px solid var(--color-gold-border);
+  padding: 4px 14px;
+  border-radius: 14px;
+  margin-bottom: var(--space-md);
+}
+
+/* Church Motto Ribbon (주님의 기쁨이 되는 교회) */
 .year-theme-box {
-  background: linear-gradient(135deg, #15325B 0%, #1F457A 100%);
+  background: linear-gradient(135deg, #234B73 0%, #16324F 100%);
   color: #FFFFFF;
   border: 2px solid var(--color-gold-bright);
   border-radius: var(--radius-sm);
-  padding: 12px 18px;
-  margin: var(--space-md) auto 0;
-  max-width: 640px;
-  box-shadow: 0 3px 10px rgba(21, 50, 91, 0.2);
-  position: relative;
+  padding: 12px 16px;
+  margin: var(--space-sm) auto 0;
+  max-width: 660px;
+  box-shadow: 0 3px 10px rgba(35, 75, 115, 0.2);
+  text-align: left;
+}
+
+.year-theme-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px solid rgba(212, 160, 52, 0.4);
+  padding-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .year-theme-label {
   font-size: var(--text-xs);
   font-weight: var(--fw-bold);
   color: #F8D98C;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-bottom: 4px;
+  letter-spacing: 0.1em;
 }
 
-.year-theme-text {
+.year-theme-verse {
+  font-size: var(--text-xs);
+  color: #E2ECF7;
+  font-weight: var(--fw-semibold);
+}
+
+.year-theme-main {
   font-family: var(--font-serif);
-  font-size: var(--text-base);
+  font-size: var(--text-lg);
   font-weight: var(--fw-bold);
   color: #FFFFFF;
-  line-height: var(--leading-normal);
-  letter-spacing: -0.01em;
+  margin-bottom: 8px;
 }
 
-/* Weekly Verse Box (Warm Amber Gold Parchment) */
-.week-verse-box {
-  margin-top: var(--space-md);
-  padding: var(--space-md);
-  background: var(--color-gold-pale);
-  border: 1px solid var(--color-gold-border);
-  border-left: 5px solid var(--color-gold-bright);
-  border-radius: var(--radius-xs);
-  text-align: left;
-  box-shadow: 0 2px 6px rgba(179, 131, 36, 0.08);
-}
-
-.week-verse-title {
+.year-theme-goals {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px;
   font-size: var(--text-xs);
-  font-weight: var(--fw-bold);
-  color: var(--color-gold);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  color: #FDF9EE;
+}
+
+@media (min-width: 600px) {
+  .year-theme-goals {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.goal-item {
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-bottom: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 4px 8px;
+  border-radius: 4px;
 }
 
-.week-verse-title::before {
-  content: "✤";
-  color: var(--color-gold-bright);
+.goal-num {
+  color: #F8D98C;
+  font-weight: var(--fw-bold);
 }
 
 /* ==========================================================================
-   Folio / 2-Column Responsive Layout
+   2. Main Mobile Tab Navigation (5개 탭)
    ========================================================================== */
-.bulletin-folio {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-lg);
-  margin-top: var(--space-lg);
+.bulletin-tab-nav {
+  display: flex;
+  overflow-x: auto;
+  border-bottom: 2px solid var(--color-hanyoung-navy);
+  margin-top: var(--space-md);
+  margin-bottom: var(--space-md);
+  background: var(--bg-paper-warm);
+  border-radius: var(--radius-xs) var(--radius-xs) 0 0;
+  -webkit-overflow-scrolling: touch;
 }
 
-@media (min-width: 768px) {
-  .bulletin-folio {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-xl);
-    align-items: start;
-  }
-
-  .folio-col-left {
-    border-right: 1.5px solid var(--color-border);
-    padding-right: var(--space-lg);
-  }
+.bulletin-tab-nav::-webkit-scrollbar {
+  height: 4px;
 }
 
-/* Section Header Typography with Colored Accents */
+.bulletin-tab-nav::-webkit-scrollbar-thumb {
+  background: var(--color-gold-border);
+}
+
+.tab-nav-btn {
+  flex: 1;
+  min-width: 100px;
+  padding: 10px 12px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  font-size: var(--text-sm);
+  font-weight: var(--fw-bold);
+  color: var(--color-subtext);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.tab-nav-btn span.tab-icon {
+  font-size: 1.1em;
+}
+
+.tab-nav-btn:hover {
+  color: var(--color-hanyoung-navy);
+  background: rgba(35, 75, 115, 0.05);
+}
+
+.tab-nav-btn.active {
+  color: var(--color-hanyoung-navy);
+  background: #FFFFFF;
+  border-bottom: 3px solid var(--color-hanyoung-navy);
+  font-weight: var(--fw-bold);
+}
+
+/* Tab Panes */
+.tab-content-pane {
+  display: none;
+  animation: fadeIn 0.2s ease;
+}
+
+.tab-content-pane.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Sub Tab Switch (예: 주일 1부 / 2부 선택) */
+.sub-service-switch {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: var(--space-md);
+}
+
+.btn-sub-service {
+  padding: 6px 16px;
+  border: 1px solid var(--color-hanyoung-navy);
+  border-radius: 20px;
+  background: #FFFFFF;
+  color: var(--color-hanyoung-navy);
+  font-size: var(--text-sm);
+  font-weight: var(--fw-bold);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-sub-service.active {
+  background: var(--color-hanyoung-navy);
+  color: #FFFFFF;
+}
+
+/* ==========================================================================
+   Section Headers & Common Card Styles
+   ========================================================================== */
 .section-header {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  border-bottom: 2px solid var(--color-navy);
+  border-bottom: 2px solid var(--color-hanyoung-navy);
   padding-bottom: 6px;
   margin-bottom: var(--space-md);
   position: relative;
@@ -347,7 +470,7 @@ body {
   position: absolute;
   bottom: -2px;
   left: 0;
-  width: 50px;
+  width: 45px;
   height: 2px;
   background: var(--color-gold-bright);
 }
@@ -356,7 +479,7 @@ body {
   font-family: var(--font-serif);
   font-size: var(--text-xl);
   font-weight: var(--fw-bold);
-  color: var(--color-navy);
+  color: var(--color-hanyoung-navy);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -370,17 +493,16 @@ body {
 
 .section-tag {
   font-size: var(--text-xs);
-  font-weight: var(--fw-semibold);
-  color: var(--color-navy);
+  font-weight: var(--fw-bold);
+  color: var(--color-hanyoung-navy);
   background: var(--color-navy-pale);
   padding: 3px 8px;
   border-radius: 10px;
   border: 1px solid #C4D7EB;
-  font-family: var(--font-sans);
 }
 
 /* ==========================================================================
-   2. Worship Flow (주일 대예배 순서표)
+   Worship Flow Order Table
    ========================================================================== */
 .worship-table {
   width: 100%;
@@ -404,7 +526,6 @@ body {
   background: #F7F2E7;
 }
 
-/* Special Rows Highlights */
 .worship-table tr.row-highlight-sermon {
   background: #FFF9ED !important;
   border-left: 4px solid var(--color-gold-bright);
@@ -416,16 +537,7 @@ body {
 
 .worship-table tr.row-highlight-choir {
   background: #F2F7FD !important;
-  border-left: 4px solid var(--color-navy);
-}
-
-.worship-table tr.row-highlight-choir .col-order-title {
-  color: var(--color-navy);
-}
-
-.worship-table tr.row-highlight-benediction {
-  background: #F1F8F4 !important;
-  border-left: 4px solid var(--color-emerald);
+  border-left: 4px solid var(--color-hanyoung-navy);
 }
 
 .worship-table td {
@@ -437,15 +549,14 @@ body {
   font-family: var(--font-serif);
   font-weight: var(--fw-bold);
   font-size: var(--text-base);
-  color: var(--color-navy);
-  width: 32%;
+  color: var(--color-hanyoung-navy);
+  width: 28%;
   white-space: nowrap;
 }
 
 .col-order-leader {
-  width: 26%;
+  width: 28%;
   text-align: center;
-  white-space: nowrap;
 }
 
 .col-order-detail {
@@ -456,7 +567,7 @@ body {
   font-weight: var(--fw-medium);
 }
 
-/* Dynamic Leader Badges */
+/* Leader Badges */
 .leader-badge {
   display: inline-block;
   padding: 2px 7px;
@@ -470,7 +581,7 @@ body {
 
 .leader-badge.badge-pastor {
   background: var(--color-navy-pale);
-  color: var(--color-navy);
+  color: var(--color-hanyoung-navy);
   border-color: #BED2E7;
 }
 
@@ -493,95 +604,7 @@ body {
 }
 
 /* ==========================================================================
-   3. Choir Distinctive Cards (찬양대 특화 섹션)
-   ========================================================================== */
-.choir-highlight-box {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: var(--space-md) 0 var(--space-lg);
-}
-
-.choir-item {
-  border-radius: var(--radius-sm);
-  padding: 12px 14px;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
-}
-
-.choir-item:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.07);
-}
-
-/* 2부 시온 찬양대 (대예배) - Royal Navy */
-.choir-item-zion {
-  background: linear-gradient(135deg, #F0F6FD 0%, #E3EEF9 100%);
-  border: 1px solid #B7D2EA;
-  border-left: 5px solid var(--color-navy);
-}
-
-.choir-item-zion .choir-badge {
-  background: var(--color-navy);
-  color: #FFFFFF;
-}
-
-.choir-item-zion .choir-song-title {
-  color: #0E2945;
-}
-
-/* 1부 임마누엘 찬양대 (권사회) - Liturgical Wine */
-.choir-item-emmanuel {
-  background: linear-gradient(135deg, #FDF3F5 0%, #FAEAEE 100%);
-  border: 1px solid #ECC5CD;
-  border-left: 5px solid var(--color-wine);
-}
-
-.choir-item-emmanuel .choir-badge {
-  background: var(--color-wine);
-  color: #FFFFFF;
-}
-
-.choir-item-emmanuel .choir-song-title {
-  color: #581424;
-}
-
-/* 수요기도회 헵시바 찬양대 - Warm Golden Amber */
-.choir-item-hephzibah {
-  background: linear-gradient(135deg, #FEF9EE 0%, #FAF2DE 100%);
-  border: 1px solid #EED8A4;
-  border-left: 5px solid var(--color-gold-bright);
-}
-
-.choir-item-hephzibah .choir-badge {
-  background: #A6751A;
-  color: #FFFFFF;
-}
-
-.choir-item-hephzibah .choir-song-title {
-  color: #553A00;
-}
-
-.choir-badge {
-  display: inline-flex;
-  align-items: center;
-  font-size: var(--text-xs);
-  font-weight: var(--fw-bold);
-  padding: 3px 9px;
-  border-radius: var(--radius-xs);
-  letter-spacing: 0.02em;
-  margin-bottom: 5px;
-}
-
-.choir-song-title {
-  font-family: var(--font-serif);
-  font-size: var(--text-base);
-  font-weight: var(--fw-bold);
-  line-height: var(--leading-normal);
-}
-
-/* ==========================================================================
-   4. Sermon Centerpiece Card (생명의 말씀)
+   Sermon Centerpiece Card
    ========================================================================== */
 .sermon-card {
   background: #FFFDF9;
@@ -590,7 +613,6 @@ body {
   border-left: 5px solid var(--color-gold-bright);
   border-radius: var(--radius-sm);
   padding: var(--space-md);
-  margin-top: var(--space-sm);
   margin-bottom: var(--space-lg);
   box-shadow: var(--shadow-card);
 }
@@ -599,7 +621,7 @@ body {
   font-family: var(--font-serif);
   font-size: var(--text-xl);
   font-weight: var(--fw-bold);
-  color: var(--color-navy);
+  color: var(--color-hanyoung-navy);
   line-height: var(--leading-normal);
   margin-bottom: 8px;
 }
@@ -608,15 +630,7 @@ body {
   font-size: var(--text-sm);
   color: var(--color-wine);
   font-weight: var(--fw-bold);
-  display: flex;
-  align-items: center;
-  gap: 6px;
   margin-bottom: var(--space-sm);
-}
-
-.sermon-preacher::before {
-  content: "🎙️";
-  font-size: 0.9em;
 }
 
 .sermon-scripture-row {
@@ -629,11 +643,11 @@ body {
   border-radius: var(--radius-xs);
   font-size: var(--text-sm);
   font-weight: var(--fw-bold);
-  color: var(--color-navy);
+  color: var(--color-hanyoung-navy);
 }
 
 .btn-scripture-toggle {
-  background: var(--color-navy);
+  background: var(--color-hanyoung-navy);
   color: #FFFFFF;
   border: none;
   padding: 5px 12px;
@@ -642,7 +656,6 @@ body {
   font-weight: var(--fw-bold);
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 1px 3px rgba(21, 50, 91, 0.2);
 }
 
 .btn-scripture-toggle:hover {
@@ -658,10 +671,8 @@ body {
   font-family: var(--font-serif);
   font-size: var(--text-base);
   line-height: var(--leading-loose);
-  color: #332612;
   display: none;
   white-space: pre-line;
-  box-shadow: inset 0 1px 4px rgba(0,0,0,0.03);
 }
 
 .scripture-accordion-body.open {
@@ -669,85 +680,279 @@ body {
 }
 
 /* ==========================================================================
-   5. Announcements (교회 소식 및 안내)
+   Choir Special Cards
    ========================================================================== */
-.announcement-list {
-  list-style: none;
+.choir-highlight-box {
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  gap: 10px;
+  margin-bottom: var(--space-lg);
 }
 
-.announcement-item {
-  display: flex;
-  gap: 12px;
-  padding: 10px 12px;
-  background: #FFFFFF;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xs);
-  transition: transform 0.15s ease, border-color 0.15s ease;
+.choir-item {
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
 }
 
-.announcement-item:hover {
-  border-color: var(--color-navy);
-  transform: translateX(2px);
+.choir-item-zion {
+  background: linear-gradient(135deg, #F0F6FD 0%, #E3EEF9 100%);
+  border: 1px solid #B7D2EA;
+  border-left: 5px solid var(--color-hanyoung-navy);
 }
 
-.announcement-badge {
-  flex-shrink: 0;
+.choir-item-emmanuel {
+  background: linear-gradient(135deg, #FDF3F5 0%, #FAEAEE 100%);
+  border: 1px solid #ECC5CD;
+  border-left: 5px solid var(--color-wine);
+}
+
+.choir-item-hephzibah {
+  background: linear-gradient(135deg, #FEF9EE 0%, #FAF2DE 100%);
+  border: 1px solid #EED8A4;
+  border-left: 5px solid var(--color-gold-bright);
+}
+
+.choir-badge {
+  display: inline-flex;
   font-size: var(--text-xs);
   font-weight: var(--fw-bold);
   padding: 3px 9px;
-  height: fit-content;
-  border-radius: 4px;
-  letter-spacing: 0.02em;
+  border-radius: var(--radius-xs);
+  margin-bottom: 5px;
 }
 
-/* Distinct Category Colors */
-.cat-worship {
-  background: var(--color-navy);
-  color: #FFFFFF;
-}
+.choir-item-zion .choir-badge { background: var(--color-hanyoung-navy); color: #FFF; }
+.choir-item-emmanuel .choir-badge { background: var(--color-wine); color: #FFF; }
+.choir-item-hephzibah .choir-badge { background: #A6751A; color: #FFF; }
 
-.cat-choir {
-  background: var(--color-emerald);
-  color: #FFFFFF;
-}
-
-.cat-wednesday {
-  background: var(--color-purple);
-  color: #FFFFFF;
-}
-
-.cat-service {
-  background: var(--color-amber);
-  color: #FFFFFF;
-}
-
-.cat-newcomer {
-  background: var(--color-wine);
-  color: #FFFFFF;
-}
-
-.cat-general {
-  background: #546059;
-  color: #FFFFFF;
-}
-
-.announcement-content {
+.choir-song-title {
+  font-family: var(--font-serif);
   font-size: var(--text-base);
-  line-height: var(--leading-normal);
-  color: var(--color-text);
+  font-weight: var(--fw-bold);
+}
+
+.choir-staff-meta {
+  font-size: var(--text-xs);
+  color: var(--color-subtext);
+  margin-top: 4px;
 }
 
 /* ==========================================================================
-   6. Directory & Ministries (섬기는 분들 & 부서)
+   탭 4: 향기로운 예물 (헌금자 명단 & 검색)
+   ========================================================================== */
+.offering-search-box {
+  background: #FFFFFF;
+  border: 2px solid var(--color-hanyoung-navy);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  margin-bottom: var(--space-md);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+.offering-search-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--color-border-dark);
+  border-radius: var(--radius-xs);
+  font-size: var(--text-base);
+  font-family: var(--font-sans);
+}
+
+.offering-search-input:focus {
+  outline: none;
+  border-color: var(--color-hanyoung-navy);
+  background: #FCFAF6;
+}
+
+.offering-category-card {
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.offering-category-title {
+  font-family: var(--font-serif);
+  font-size: var(--text-base);
+  font-weight: var(--fw-bold);
+  color: var(--color-hanyoung-navy);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 6px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.offering-name-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.name-pill {
+  display: inline-block;
+  padding: 4px 10px;
+  background: var(--bg-paper-warm);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font-size: var(--text-sm);
+  font-weight: var(--fw-medium);
+  transition: all 0.2s ease;
+}
+
+.name-pill.matched {
+  background: var(--color-gold-bright) !important;
+  color: #FFFFFF !important;
+  font-weight: var(--fw-bold) !important;
+  transform: scale(1.08);
+  box-shadow: 0 2px 6px rgba(212, 160, 52, 0.4);
+}
+
+/* ==========================================================================
+   탭 5: 성경 퀴즈 & 일독 체크표
+   ========================================================================== */
+.quiz-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.quiz-card {
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-hanyoung-navy);
+  border-radius: var(--radius-sm);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-card);
+}
+
+.quiz-question {
+  font-family: var(--font-serif);
+  font-size: var(--text-base);
+  font-weight: var(--fw-bold);
+  color: var(--color-hanyoung-navy);
+  margin-bottom: 10px;
+  line-height: var(--leading-normal);
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.quiz-option-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xs);
+  background: var(--bg-paper);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+}
+
+.quiz-option-btn:hover {
+  background: var(--color-navy-pale);
+  border-color: var(--color-hanyoung-navy);
+}
+
+.quiz-option-btn.selected {
+  background: var(--color-navy-pale);
+  border-color: var(--color-hanyoung-navy);
+  font-weight: var(--fw-bold);
+}
+
+.quiz-option-btn.correct {
+  background: #E8F5E9 !important;
+  border-color: #2E7D32 !important;
+  color: #1B5E20 !important;
+  font-weight: var(--fw-bold);
+}
+
+.quiz-option-btn.wrong {
+  background: #FFEBEE !important;
+  border-color: #C62828 !important;
+  color: #B71C1C !important;
+}
+
+.quiz-action-bar {
+  text-align: center;
+  margin: var(--space-md) 0;
+}
+
+.btn-submit-quiz {
+  padding: 10px 28px;
+  background: var(--color-hanyoung-navy);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 20px;
+  font-size: var(--text-base);
+  font-weight: var(--fw-bold);
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(35, 75, 115, 0.3);
+}
+
+/* Bible Reading Schedule Table */
+.reading-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-lg);
+  border: 1px solid var(--color-border);
+  background: #FFFFFF;
+}
+
+.reading-table th, .reading-table td {
+  padding: 8px 10px;
+  border: 1px solid var(--color-border);
+}
+
+.reading-table th {
+  background: var(--bg-paper-warm);
+  color: var(--color-hanyoung-navy);
+  font-weight: var(--fw-bold);
+  text-align: center;
+}
+
+.btn-check-reading {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--color-border-dark);
+  background: #FFFFFF;
+  font-size: var(--text-xs);
+  cursor: pointer;
+}
+
+.btn-check-reading.checked {
+  background: var(--color-emerald);
+  color: #FFFFFF;
+  border-color: var(--color-emerald);
+}
+
+/* ==========================================================================
+   Directory & Organization Grid
    ========================================================================== */
 .directory-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: var(--space-sm);
   margin-bottom: var(--space-md);
+}
+
+@media (min-width: 600px) {
+  .directory-grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .directory-card {
@@ -755,7 +960,6 @@ body {
   border: 1px solid var(--color-border);
   padding: 12px;
   border-radius: var(--radius-xs);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
 }
 
 .directory-card-pastor {
@@ -767,124 +971,23 @@ body {
 .directory-card-elders {
   background: var(--color-navy-pale);
   border: 1px solid #C5D7EA;
-  border-top: 3px solid var(--color-navy);
+  border-top: 3px solid var(--color-hanyoung-navy);
 }
 
 .directory-role {
   font-size: var(--text-xs);
   font-weight: var(--fw-bold);
-  color: var(--color-subtext);
+  color: var(--color-hanyoung-navy);
   margin-bottom: 4px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.directory-card-pastor .directory-role {
-  color: var(--color-gold);
-}
-
-.directory-card-elders .directory-role {
-  color: var(--color-navy);
 }
 
 .directory-names {
   font-size: var(--text-sm);
   font-weight: var(--fw-semibold);
   line-height: var(--leading-normal);
-  color: var(--color-text);
 }
 
-/* Departments Schedule with Colorful Badges */
-.ministry-schedule-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: var(--space-xs);
-  margin-bottom: var(--space-md);
-}
-
-.ministry-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: var(--text-sm);
-  padding: 8px 12px;
-  background: #FFFFFF;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xs);
-}
-
-.dept-badge {
-  display: inline-block;
-  font-size: var(--text-xs);
-  font-weight: var(--fw-bold);
-  padding: 2px 8px;
-  border-radius: 4px;
-  margin-right: 6px;
-}
-
-.dept-children {
-  background: #E8F5E9;
-  color: #1B5E20;
-}
-
-.dept-youth {
-  background: #E3F2FD;
-  color: #0D47A1;
-}
-
-.dept-youngadult {
-  background: #F3E5F5;
-  color: #4A148C;
-}
-
-.dept-adult {
-  background: #FFF3E0;
-  color: #E65100;
-}
-
-.ministry-name {
-  font-weight: var(--fw-bold);
-  color: var(--color-navy);
-}
-
-.ministry-meta {
-  font-size: var(--text-xs);
-  color: var(--color-subtext);
-  font-weight: var(--fw-medium);
-}
-
-/* Next Week Service Table */
-.next-week-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: var(--text-sm);
-  margin-bottom: var(--space-md);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xs);
-  overflow: hidden;
-}
-
-.next-week-table th, .next-week-table td {
-  padding: 9px 10px;
-  border: 1px solid var(--color-border);
-}
-
-.next-week-table th {
-  background: var(--bg-paper-warm);
-  color: var(--color-navy);
-  font-weight: var(--fw-bold);
-  text-align: left;
-  width: 35%;
-}
-
-.next-week-table td {
-  background: #FFFFFF;
-  font-weight: var(--fw-medium);
-}
-
-/* Offering Account Section (원터치 계좌 복사) */
+/* Offering Box & Footer */
 .offering-box {
   background: linear-gradient(135deg, #FFFDF8 0%, #F9F3E4 100%);
   border: 2px solid var(--color-gold-border);
@@ -892,25 +995,14 @@ body {
   padding: var(--space-md);
   text-align: center;
   margin-top: var(--space-md);
-  box-shadow: var(--shadow-card);
 }
 
 .offering-title {
   font-family: var(--font-serif);
   font-size: var(--text-lg);
   font-weight: var(--fw-bold);
-  color: var(--color-navy);
+  color: var(--color-hanyoung-navy);
   margin-bottom: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-
-.offering-title::before, .offering-title::after {
-  content: "✤";
-  color: var(--color-gold-bright);
-  font-size: 0.8em;
 }
 
 .offering-account-row {
@@ -925,13 +1017,12 @@ body {
 .account-number-text {
   font-size: var(--text-base);
   font-weight: var(--fw-bold);
-  color: var(--color-navy);
+  color: var(--color-hanyoung-navy);
   letter-spacing: 0.05em;
   background: #FFFFFF;
   padding: 8px 16px;
   border: 1.5px solid var(--color-gold-border);
   border-radius: var(--radius-xs);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .btn-copy-account {
@@ -952,16 +1043,8 @@ body {
 
 .btn-copy-account:hover {
   background: #145233;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(27, 104, 65, 0.35);
 }
 
-.offering-note {
-  font-size: var(--text-xs);
-  color: var(--color-subtext);
-}
-
-/* Footer Editorial */
 .bulletin-footer {
   text-align: center;
   padding-top: var(--space-lg);
@@ -972,13 +1055,13 @@ body {
   line-height: var(--leading-normal);
 }
 
-/* Toast Notification (계좌번호 복사 완료 등) */
+/* Toast */
 .toast-notice {
   position: fixed;
   bottom: 2rem;
   left: 50%;
   transform: translateX(-50%) translateY(100px);
-  background: rgba(21, 50, 91, 0.96);
+  background: rgba(22, 50, 79, 0.96);
   color: #FFFFFF;
   border: 1px solid var(--color-gold-bright);
   padding: 12px 24px;

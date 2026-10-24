@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>그레이스교회 모바일 주보 - Grace Weekly</title>
-  <meta name="description" content="300명 규모 교회를 위한 장년 친화형 스마트 모바일 주보 그레이스 위클리">
-  
-  <!-- Social Meta Tags -->
-  <meta property="og:title" content="그레이스교회 모바일 주보">
-  <meta property="og:description" content="말씀 위에 든든히 서가는 은혜의 공동체 - 이번 주 주보를 확인하세요.">
+  <title>한영교회 모바일 주보 - HANYOUNG PRESBYTERIAN CHURCH</title>
+  <meta name="description" content="대한예수교장로회 한영교회 스마트 모바일 주보 (주님의 기쁨이 되는 교회)">
+
+  <!-- Social OpenGraph -->
+  <meta property="og:title" content="대한예수교장로회 한영교회 모바일 주보">
+  <meta property="og:description" content="주님의 기쁨이 되는 교회 - 2026년 이번 주 주보를 확인하세요.">
   <meta property="og:type" content="website">
 
   <!-- Favicon -->
@@ -27,284 +27,508 @@
   <nav class="top-accessibility-bar" aria-label="주보 보조 메뉴">
     <div class="top-bar-left">
       <div class="top-bar-church-badge">
-        <img src="assets/emblem.svg" alt="교회 로고" width="22" height="22">
-        <span>그레이스교회 주보</span>
+        <img src="assets/emblem.svg" alt="한영교회 심볼" width="24" height="24">
+        <span>한영교회 주보</span>
       </div>
     </div>
     <div class="top-bar-actions">
-      <button type="button" id="btnToggleFontSize" class="btn-pill" title="글자 크기 변경">
-        큰 글씨
+      <!-- Font Zoom Controls -->
+      <div class="font-zoom-group">
+        <button type="button" id="btnZoomOut" class="font-zoom-btn" title="글자 축소">가-</button>
+        <button type="button" id="btnZoomIn" class="font-zoom-btn" title="글자 확대">가+</button>
+      </div>
+
+      <!-- Speech Narration Mode Button -->
+      <button type="button" id="btnAudioNarration" class="btn-pill" title="주보 음성 낭독 모드">
+        🔊 낭독
       </button>
+
+      <!-- Share Button -->
       <button type="button" id="btnShareBulletin" class="btn-pill" title="카카오톡 및 링크 공유">
-        공유하기
+        공유
       </button>
-      <a href="admin.html" class="btn-pill" title="관리자 페이지 이동">
+
+      <!-- Admin Link -->
+      <a href="admin.html" class="btn-pill" title="관리자 시스템 이동">
         관리자
       </a>
     </div>
   </nav>
 
-  <!-- Main Folded Folio Bulletin Paper Container -->
+  <!-- Main Folio Bulletin Container -->
   <main class="bulletin-container">
     <article class="bulletin-inner">
 
       <!-- ====================================================================
-           1. Cover Header (주보 표지)
+           1. Cover Header (한영교회 표지 및 표어)
            ==================================================================== -->
       <header class="cover-header">
         <div class="cover-meta-row">
-          <span>제 32권 43호</span>
+          <span>제 52권 43호</span>
           <span id="bulletinDateDisplay">2026년 10월 25일 주일</span>
-          <span>주일 1부 09:00 / 2부 11:00</span>
+          <span>1부 09:00 / 2부 11:00</span>
         </div>
 
         <div class="emblem-wrapper">
-          <img src="assets/emblem.svg" alt="그레이스교회 엠블럼">
+          <img src="assets/emblem.svg" alt="한영교회 엠블럼">
         </div>
 
-        <h1 class="church-title-kr">그레이스교회</h1>
-        <p class="church-title-en">Grace Presbyterian Church</p>
+        <div class="denomination-label">대한예수교장로회</div>
+        <h1 class="church-title-kr">한영교회</h1>
+        <p class="church-title-en">HANYOUNG PRESBYTERIAN CHURCH</p>
+        
+        <div>
+          <span class="senior-pastor-tag" id="churchPastorDisplay">담임목사: 송선우</span>
+        </div>
 
-        <!-- Annual Church Theme Ribbon -->
+        <!-- Church Annual Motto Box -->
         <div class="year-theme-box">
-          <div class="year-theme-label">2026년도 교회 표어</div>
-          <div class="year-theme-text">"말씀 위에 든든히 서가는 은혜의 공동체" (골 2:6~7)</div>
-        </div>
-
-        <!-- Weekly Theme Scripture Verse -->
-        <div class="week-verse-box">
-          <div class="week-verse-title">이 주의 묵상 말씀</div>
-          <blockquote class="scripture-verse" id="bulletinThemeVerse">
-            그러므로 너희가 그리스도 예수를 주로 받았으니 그 안에서 행하되 그 안에 뿌리를 박으며 세움을 받아 교훈을 받은 대로 믿음에 굳게 서서 감사함을 넘치게 하라 (골로새서 2:6-7)
-          </blockquote>
+          <div class="year-theme-top">
+            <span class="year-theme-label">2026년도 교회 표어</span>
+            <span class="year-theme-verse">요한복음 14:17-18</span>
+          </div>
+          <div class="year-theme-main">
+            "주님의 기쁨이 되는 교회"
+          </div>
+          <div class="year-theme-goals">
+            <div class="goal-item">
+              <span class="goal-num">1.</span>
+              <span>하나님의 말씀을 사랑하는 교회</span>
+            </div>
+            <div class="goal-item">
+              <span class="goal-num">2.</span>
+              <span>오직 믿음으로 일하는 교회</span>
+            </div>
+            <div class="goal-item">
+              <span class="goal-num">3.</span>
+              <span>땅끝까지 선교하는 교회</span>
+            </div>
+          </div>
         </div>
       </header>
 
       <!-- ====================================================================
-           Folio 2-Column Responsive Body
+           2. 5개 메인 탭 네비게이션
            ==================================================================== -->
-      <div class="bulletin-folio">
+      <nav class="bulletin-tab-nav" aria-label="주보 섹션 탭">
+        <button type="button" class="tab-nav-btn active" data-tab="tab-worship">
+          <span class="tab-icon">📖</span>
+          <span>주일 대예배</span>
+        </button>
+        <button type="button" class="tab-nav-btn" data-tab="tab-afternoon">
+          <span class="tab-icon">🕊️</span>
+          <span>오후·수요·기도</span>
+        </button>
+        <button type="button" class="tab-nav-btn" data-tab="tab-news">
+          <span class="tab-icon">📢</span>
+          <span>교회소식·섬김</span>
+        </button>
+        <button type="button" class="tab-nav-btn" data-tab="tab-offering">
+          <span class="tab-icon">💝</span>
+          <span>향기로운 예물</span>
+        </button>
+        <button type="button" class="tab-nav-btn" data-tab="tab-bible">
+          <span class="tab-icon">✍️</span>
+          <span>말씀묵상·퀴즈</span>
+        </button>
+      </nav>
 
-        <!-- Left Column: 예배 순서, 찬양대, 말씀 -->
-        <div class="folio-col folio-col-left">
-
-          <!-- 2. 주일 대예배 순서 -->
-          <section aria-labelledby="worship-section-title">
-            <div class="section-header">
-              <h2 id="worship-section-title" class="section-title">주일 대예배 순서</h2>
-              <span class="section-tag">1부 09:00 · 2부 11:00</span>
-            </div>
-
-            <table class="worship-table">
-              <tbody id="worshipFlowTableBody">
-                <!-- Dynamically populated by app.js with colored row highlights & badges -->
-              </tbody>
-            </table>
-          </section>
-
-          <!-- 3. 찬양대 특화 섹션 (시온, 임마누엘, 헵시바) -->
-          <section aria-labelledby="choir-section-title">
-            <div class="section-header">
-              <h2 id="choir-section-title" class="section-title">찬양대 은혜 찬양</h2>
-              <span class="section-tag">찬양과 영광</span>
-            </div>
-
-            <div class="choir-highlight-box">
-              <!-- 주일 2부: 시온 찬양대 (Royal Navy Theme) -->
-              <div class="choir-item choir-item-zion">
-                <span class="choir-badge">주일 2부 대예배 · 시온 찬양대</span>
-                <div class="choir-song-title" id="choirZionTitle">
-                  주의 은혜라 (작곡: 손경민)
-                </div>
-              </div>
-
-              <!-- 주일 1부: 임마누엘 찬양대 (Liturgical Wine Theme) -->
-              <div class="choir-item choir-item-emmanuel">
-                <span class="choir-badge">주일 1부 예배 · 임마누엘 찬양대 (권사회)</span>
-                <div class="choir-song-title" id="choirEmmanuelTitle">
-                  참 좋으신 주님 (작곡: 김기영)
-                </div>
-              </div>
-
-              <!-- 수요예배: 헵시바 찬양대 (Golden Amber Theme) -->
-              <div class="choir-item choir-item-hephzibah">
-                <span class="choir-badge">수요기도회 특송 · 헵시바 찬양대</span>
-                <div class="choir-song-title" id="choirHephzibahTitle">
-                  나의 힘이 되신 여호와여 (작곡: 김석균)
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <!-- 4. 이번 주 설교 말씀 -->
-          <section aria-labelledby="sermon-section-title">
-            <div class="section-header">
-              <h2 id="sermon-section-title" class="section-title">생명의 말씀</h2>
-              <span class="section-tag">주일 강단</span>
-            </div>
-
-            <div class="sermon-card">
-              <h3 class="sermon-title-heading" id="sermonTitleDisplay">
-                말씀 위에 든든히 서가는 은혜의 공동체
-              </h3>
-              <div class="sermon-preacher" id="sermonPreacherDisplay">
-                이은혜 담임목사
-              </div>
-              
-              <div class="sermon-scripture-row">
-                <span id="sermonScriptureDisplay">골로새서 2장 6절 ~ 7절</span>
-                <button type="button" class="btn-scripture-toggle" id="btnToggleScripture">
-                  말씀 읽기 ▼
-                </button>
-              </div>
-
-              <!-- Expandable Full Scripture Passage -->
-              <div class="scripture-accordion-body" id="scriptureBody">
-                6 그러므로 너희가 그리스도 예수를 주로 받았으니 그 안에서 행하되
-                7 그 안에 뿌리를 박으며 세움을 받아 교훈을 받은 대로 믿음에 굳게 서서 감사함을 넘치게 하라
-              </div>
-            </div>
-          </section>
-
+      <!-- ====================================================================
+           탭 1: 주일 대예배 (1부 09:00 / 2부 11:00)
+           ==================================================================== -->
+      <section id="tab-worship" class="tab-content-pane active">
+        
+        <!-- 1부 / 2부 선택 스위치 -->
+        <div class="sub-service-switch">
+          <button type="button" class="btn-sub-service" data-service="worship_1">주일 1부 (09:00)</button>
+          <button type="button" class="btn-sub-service active" data-service="worship_2">주일 2부 (11:00 대예배)</button>
         </div>
 
-        <!-- Right Column: 교회 소식, 섬기는 분들, 다음 주 안내, 헌금 계좌 -->
-        <div class="folio-col folio-col-right">
+        <!-- 설교 센터피스 카드 -->
+        <div class="sermon-card">
+          <div class="section-tag" style="margin-bottom: 8px;">주일 강단 선포</div>
+          <h2 class="sermon-title-heading" id="sermonTitleDisplay">
+            그리스도인의 삶의 자세
+          </h2>
+          <div class="sermon-preacher" id="sermonPreacherDisplay">
+            송선우 담임목사
+          </div>
 
-          <!-- 5. 교회 소식 및 안내 -->
-          <section aria-labelledby="news-section-title">
-            <div class="section-header">
-              <h2 id="news-section-title" class="section-title">교회 소식 및 알림</h2>
-              <span class="section-tag">공동체 교제</span>
-            </div>
+          <div class="sermon-scripture-row">
+            <span id="sermonScriptureDisplay">누가복음 19장 1절 ~ 10절 (눅 19:1-10)</span>
+            <button type="button" class="btn-scripture-toggle" id="btnToggleScripture">
+              말씀 읽기 ▼
+            </button>
+          </div>
 
-            <ul class="announcement-list" id="announcementsList">
-              <!-- Dynamically populated by app.js with category color badges -->
-            </ul>
-          </section>
-
-          <!-- 6. 섬기는 분들 (시무장로 6인 및 직분자) -->
-          <section aria-labelledby="directory-section-title" style="margin-top: var(--space-lg);">
-            <div class="section-header">
-              <h2 id="directory-section-title" class="section-title">섬기는 분들</h2>
-              <span class="section-tag">직분과 사명</span>
-            </div>
-
-            <div class="directory-grid">
-              <div class="directory-card directory-card-pastor">
-                <div class="directory-role">담임목사</div>
-                <div class="directory-names">이은혜 목사</div>
-              </div>
-              <div class="directory-card directory-card-elders">
-                <div class="directory-role">시무장로 (6인)</div>
-                <div class="directory-names">김진호 · 이원철 · 박상훈<br>정영근 · 최선호 · 한만수</div>
-              </div>
-              <div class="directory-card">
-                <div class="directory-role">안수집사회</div>
-                <div class="directory-names">회장: 김성수 집사 외 18명</div>
-              </div>
-              <div class="directory-card">
-                <div class="directory-role">권사회</div>
-                <div class="directory-names">회장: 박영숙 권사 외 42명</div>
-              </div>
-            </div>
-          </section>
-
-          <!-- 7. 교회 학교 및 부서 모임 안내 (300명 규모 현황) -->
-          <section aria-labelledby="ministry-section-title">
-            <div class="section-header">
-              <h2 id="ministry-section-title" class="section-title">교회학교 & 기관 모임</h2>
-              <span class="section-tag">다음 세대</span>
-            </div>
-
-            <div class="ministry-schedule-list">
-              <div class="ministry-row">
-                <div>
-                  <span class="dept-badge dept-children">어린이</span>
-                  <span class="ministry-name">주일학교 (꿈땅)</span>
-                </div>
-                <span class="ministry-meta">주일 11:00 · 소예배실 (20명)</span>
-              </div>
-              <div class="ministry-row">
-                <div>
-                  <span class="dept-badge dept-youth">청소년</span>
-                  <span class="ministry-name">중고등부</span>
-                </div>
-                <span class="ministry-meta">주일 11:00 · 3층 교육관 (20명)</span>
-              </div>
-              <div class="ministry-row">
-                <div>
-                  <span class="dept-badge dept-youngadult">청년</span>
-                  <span class="ministry-name">청년부 (그레이스 유스)</span>
-                </div>
-                <span class="ministry-meta">주일 13:30 · 지하 비전홀 (20명)</span>
-              </div>
-              <div class="ministry-row">
-                <div>
-                  <span class="dept-badge dept-adult">장년</span>
-                  <span class="ministry-name">장년 구역 모임</span>
-                </div>
-                <span class="ministry-meta">매주 금/주일 각 구역 처소</span>
-              </div>
-            </div>
-          </section>
-
-          <!-- 8. 다음 주 안내 -->
-          <section aria-labelledby="next-week-title">
-            <div class="section-header">
-              <h2 id="next-week-title" class="section-title">다음 주 섬김 안내</h2>
-              <span class="section-tag" id="nextWeekDateLabel">11월 1일 주일</span>
-            </div>
-
-            <table class="next-week-table">
-              <tbody>
-                <tr>
-                  <th>대표기도</th>
-                  <td>1부: <strong id="nextPrayer1">최선호 권사</strong> / 2부: <strong id="nextPrayer2">이원철 장로</strong></td>
-                </tr>
-                <tr>
-                  <th>강단 헌화</th>
-                  <td id="nextFlower">정영근 장로 가정 (범사 감사)</td>
-                </tr>
-                <tr>
-                  <th>식당 애찬 봉사</th>
-                  <td id="nextKitchen">제4구역 (남선교회)</td>
-                </tr>
-                <tr>
-                  <th>예배 및 안내 위원</th>
-                  <td id="nextUsher">김성수 안수집사, 박영숙 권사</td>
-                </tr>
-              </tbody>
-            </table>
-          </section>
-
-          <!-- 9. 온라인 헌금 계좌 (원터치 계좌 복사) -->
-          <section aria-labelledby="offering-title">
-            <div class="offering-box">
-              <div class="offering-title" id="offering-title">온라인 헌금 안내</div>
-              <p class="offering-note">정성껏 구별하신 예물을 온라인으로 봉헌하실 수 있습니다.</p>
-              
-              <div class="offering-account-row">
-                <span class="account-number-text">
-                  농협 <strong id="accountNumberText">301-1234-5678-91</strong>
-                </span>
-                <button type="button" class="btn-copy-account" id="btnCopyAccount">
-                  계좌 복사
-                </button>
-              </div>
-              
-              <p class="offering-note">예금주: 대한예수교장로회 그레이스교회 (입금자명+헌금종류 기재)</p>
-            </div>
-          </section>
-
+          <!-- 성경 본문 전문 아코디언 -->
+          <div class="scripture-accordion-body" id="scriptureBody">
+1 예수께서 여리고로 들어가 지나가시더라
+2 삭개오라 이름하는 자가 있으니 세리장이요 또한 부자라
+3 그가 예수께서 어떠한 사람인가 하여 보고자 하되 키가 작고 사람이 많아 할 수 없어
+4 앞으로 달려가서 보기 위하여 돌무화과나무에 올라가니 이는 예수께서 그리로 지나가시게 됨이러라
+5 예수께서 그 곳에 이르사 쳐다보시고 이르시되 삭개오야 속히 내려오라 내가 오늘 네 집에 유하여야 하겠다 하시니
+6 급히 내려와 즐거워하며 영접하거늘
+7 뭇 사람이 보고 수군거려 이르되 저가 죄인의 집에 유하러 들어갔도다 하더라
+8 삭개오가 서서 주께 여짜오되 주여 보시옵소서 내 소유의 절반을 가난한 자들에게 주겠사오며 만일 누구의 것을 속여 빼앗은 일이 있으면 네 갑절이나 갚겠나이다
+9 예수께서 이르시되 오늘 구원이 이 집에 이르렀으니 이 사람도 아브라함의 자손임이로다
+10 인자가 온 것은 잃어버린 자를 찾아 구원하려 함이니라
+          </div>
         </div>
-      </div>
+
+        <!-- 예배 순서표 -->
+        <div class="section-header">
+          <h3 class="section-title">예배 순서</h3>
+          <span class="section-tag">경건과 감사</span>
+        </div>
+
+        <table class="worship-table">
+          <tbody id="worshipFlowTableBody">
+            <!-- Dynamically populated by app.js -->
+          </tbody>
+        </table>
+
+        <!-- 찬양대 은혜 찬양 -->
+        <div class="section-header">
+          <h3 class="section-title">찬양대 은혜 찬양</h3>
+          <span class="section-tag">찬양과 영광</span>
+        </div>
+
+        <div class="choir-highlight-box">
+          <!-- 2부: 시온 찬양대 -->
+          <div class="choir-item choir-item-zion">
+            <span class="choir-badge">주일 2부(11:00) 대예배 · 시온 찬양대</span>
+            <div class="choir-song-title">주의 은혜라</div>
+            <div class="choir-staff-meta">지휘: 김남규 · 반주: 문제철 · 오르간: 서영숙 · 대장: 조익한</div>
+          </div>
+          <!-- 1부: 난 만족합니다 -->
+          <div class="choir-item choir-item-emmanuel">
+            <span class="choir-badge">주일 1부(09:00) 예배 찬양</span>
+            <div class="choir-song-title">난 만족합니다</div>
+            <div class="choir-staff-meta">1부 찬양대 봉헌 및 특송</div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ====================================================================
+           탭 2: 오후 찬양 / 수요 / 기도회
+           ==================================================================== -->
+      <section id="tab-afternoon" class="tab-content-pane">
+        
+        <!-- 주일 오후 찬양예배 (14:30) -->
+        <div class="section-header">
+          <h3 class="section-title">주일 오후 찬양예배</h3>
+          <span class="section-tag" id="afternoonTime">주일 오후 14:30 · 본당</span>
+        </div>
+
+        <div class="sermon-card" style="border-top-color: var(--color-wine);">
+          <div style="font-size: var(--text-xs); color: var(--color-wine); font-weight: bold; margin-bottom: 4px;">
+            찬양인도: <span id="afternoonPraise">아도나이 찬양단 (신광은 목사)</span>
+          </div>
+          <h4 class="sermon-title-heading" id="afternoonSermon">
+            "귀 좋으신 주님" (행 5:1-11) - 신광은 목사
+          </h4>
+          <div class="choir-item choir-item-emmanuel" style="margin-top: 10px;">
+            <span class="choir-badge">오후 찬양대 · 임마누엘 찬양대</span>
+            <div class="choir-song-title" id="afternoonChoir">권사 중심 은혜 찬양</div>
+            <div class="choir-staff-meta">반주: 최신아 · 대장: 김태형</div>
+          </div>
+        </div>
+
+        <!-- 수요 성서연구 (19:30) -->
+        <div class="section-header">
+          <h3 class="section-title">수요 성서연구 (저녁 19:30)</h3>
+          <span class="section-tag" id="wednesdayTime">매주 수요일 저녁 19:30</span>
+        </div>
+
+        <div class="sermon-card" style="border-top-color: var(--color-gold-bright);">
+          <h4 class="sermon-title-heading" id="wednesdayTitle">
+            수요 성서연구 (마태복음 강해) - 송선우 담임목사
+          </h4>
+          <div style="font-size: var(--text-sm); color: var(--color-subtext); margin-bottom: 8px;" id="wednesdayPrayer">
+            기도: 김영효 권사 (다음 주: 이정애 권사)
+          </div>
+          <div class="choir-item choir-item-hephzibah">
+            <span class="choir-badge">수요 찬양대 · 헵시바 찬양대</span>
+            <div class="choir-song-title" id="wednesdayChoir">수요 헌신 특송</div>
+            <div class="choir-staff-meta">지휘: 신광은 · 반주: 이지혜 · 대장: 윤영임</div>
+          </div>
+        </div>
+
+        <!-- 기도회 안내 -->
+        <div class="section-header">
+          <h3 class="section-title">기도회 모임 안내</h3>
+          <span class="section-tag">기도와 부흥</span>
+        </div>
+
+        <div class="ministry-schedule-list">
+          <div class="ministry-row">
+            <div>
+              <span class="dept-badge dept-youngadult">금요철야</span>
+              <span class="ministry-name">금요 밤 기도회</span>
+            </div>
+            <span class="ministry-meta">매주 금요일 밤 21:00 (소망관)</span>
+          </div>
+          <div class="ministry-row">
+            <div>
+              <span class="dept-badge dept-adult">새벽제단</span>
+              <span class="ministry-name">새벽 기도회</span>
+            </div>
+            <span class="ministry-meta">매일 오전 05:30 (소망관 · 송선우 목사)</span>
+          </div>
+        </div>
+
+        <!-- 교회학교 & 청년부 (300명 현황) -->
+        <div class="section-header" style="margin-top: var(--space-lg);">
+          <h3 class="section-title">교회학교 & 청년회</h3>
+          <span class="section-tag">다음 세대</span>
+        </div>
+
+        <div class="ministry-schedule-list">
+          <div class="ministry-row">
+            <div>
+              <span class="dept-badge dept-children">어린이</span>
+              <span class="ministry-name">주일학교 (유·초등부)</span>
+            </div>
+            <span class="ministry-meta">주일 11:00 · 교육관 2층 (20명)</span>
+          </div>
+          <div class="ministry-row">
+            <div>
+              <span class="dept-badge dept-youth">청소년</span>
+              <span class="ministry-name">중·고등부</span>
+            </div>
+            <span class="ministry-meta">주일 11:00 · 소예배실 3층 (20명)</span>
+          </div>
+          <div class="ministry-row">
+            <div>
+              <span class="dept-badge dept-youngadult">청년</span>
+              <span class="ministry-name">청년회</span>
+            </div>
+            <span class="ministry-meta">주일 11:00 · 본당 (20명)</span>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ====================================================================
+           탭 3: 교회소식 & 성도의 교제 & 섬기는 분들
+           ==================================================================== -->
+      <section id="tab-news" class="tab-content-pane">
+        
+        <div class="section-header">
+          <h3 class="section-title">교회 소식 및 안내</h3>
+          <span class="section-tag">공동체 교제</span>
+        </div>
+
+        <ul class="announcement-list" id="announcementsList">
+          <!-- Dynamically populated by app.js -->
+        </ul>
+
+        <!-- 섬기는 분들 (실물 주보 반영) -->
+        <div class="section-header" style="margin-top: var(--space-lg);">
+          <h3 class="section-title">섬기는 분들 (교회 조직)</h3>
+          <span class="section-tag">직분과 사명</span>
+        </div>
+
+        <div class="directory-grid">
+          <div class="directory-card directory-card-pastor">
+            <div class="directory-role">담임목사 및 교역자</div>
+            <div class="directory-names">
+              <strong>담임목사:</strong> 송선우<br>
+              <strong>부목사:</strong> 신광은 · 최선열<br>
+              <strong>전도사:</strong> 여은영
+            </div>
+          </div>
+
+          <div class="directory-card directory-card-elders">
+            <div class="directory-role">시무장로 (6인)</div>
+            <div class="directory-names">
+              이태호 · 최태선 · 김기동<br>
+              예민구 · 김재형 · 이정태
+            </div>
+          </div>
+
+          <div class="directory-card">
+            <div class="directory-role">원로장로 & 은퇴장로</div>
+            <div class="directory-names">
+              <strong>원로장로:</strong> 문태응 · 유연봉<br>
+              <strong>은퇴장로:</strong> 김두종 · 기윤배
+            </div>
+          </div>
+
+          <div class="directory-card">
+            <div class="directory-role">명예장로 & 안수집사회</div>
+            <div class="directory-names">
+              <strong>명예장로:</strong> 배광복 · 이기동 · 이두호 · 이임기 · 이은주 · 김영산<br>
+              <strong>안수집사회:</strong> 회장 최진업 집사 외 다수
+            </div>
+          </div>
+        </div>
+
+        <!-- 온라인 헌금 안내 (국민은행) -->
+        <div class="offering-box">
+          <div class="offering-title">온라인 헌금 안내</div>
+          <p class="offering-note">정성껏 구별하신 예물을 온라인으로 봉헌하실 수 있습니다.</p>
+          
+          <div class="offering-account-row">
+            <span class="account-number-text">
+              국민은행 <strong id="accountNumberText">089501-04-256536</strong> (한영교회)
+            </span>
+            <button type="button" class="btn-copy-account" id="btnCopyAccount">
+              계좌 복사
+            </button>
+          </div>
+          
+          <p class="offering-note">예금주: 대한예수교장로회 한영교회 (입금 예시: 십일조-홍길동, 감사-홍길동, 선교-홍길동)</p>
+        </div>
+
+      </section>
+
+      <!-- ====================================================================
+           탭 4: 향기로운 예물 (헌금 명단 & 실시간 검색)
+           ==================================================================== -->
+      <section id="tab-offering" class="tab-content-pane">
+        
+        <div class="section-header">
+          <h3 class="section-title">향기로운 예물 (헌금 명단)</h3>
+          <span class="section-tag">정성된 봉헌</span>
+        </div>
+
+        <!-- 성도 이름 실시간 검색 인풋 -->
+        <div class="offering-search-box">
+          <label for="offeringSearchInput" style="font-size: var(--text-xs); font-weight: bold; color: var(--color-hanyoung-navy); display: block; margin-bottom: 6px;">
+            🔍 성도 이름 검색 (본인의 이름을 검색해 보세요)
+          </label>
+          <input type="text" id="offeringSearchInput" class="offering-search-input" placeholder="이름 입력 (예: 이태호, 예민구, 김기동...)">
+          <div id="searchCountDisplay" style="font-size: var(--text-xs); color: var(--color-gold); font-weight: bold; margin-top: 6px;"></div>
+        </div>
+
+        <!-- 십일조 명단 -->
+        <div class="offering-category-card">
+          <div class="offering-category-title">
+            <span>십일조 헌금</span>
+            <span style="font-size: var(--text-xs); color: var(--color-muted);">온전한 십일조</span>
+          </div>
+          <div class="offering-name-cloud" id="titheList">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- 감사헌금 명단 -->
+        <div class="offering-category-card">
+          <div class="offering-category-title">
+            <span>감사 헌금</span>
+            <span style="font-size: var(--text-xs); color: var(--color-muted);">범사에 감사</span>
+          </div>
+          <div class="offering-name-cloud" id="thanksgivingList">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- 선교 및 기관 헌금 -->
+        <div class="offering-category-card">
+          <div class="offering-category-title">
+            <span>선교 헌금 & 기관</span>
+            <span style="font-size: var(--text-xs); color: var(--color-muted);">땅끝까지 선교</span>
+          </div>
+          <div class="offering-name-cloud" id="missionList">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- 특별 감사 및 목적 헌금 -->
+        <div class="offering-category-card">
+          <div class="offering-category-title">
+            <span>특별 감사 & 기도 제목</span>
+          </div>
+          <div id="specialList">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ====================================================================
+           탭 5: 말씀 묵상 & 성경 퀴즈 (말씀은 내 발에 등이요)
+           ==================================================================== -->
+      <section id="tab-bible" class="tab-content-pane">
+        
+        <div class="section-header">
+          <h3 class="section-title">금주의 성경일독 체크표</h3>
+          <span class="section-tag" id="readingWeekDisplay">월~토: 마태 21장 ~ 마가 15장</span>
+        </div>
+
+        <table class="reading-table">
+          <thead>
+            <tr>
+              <th>요일</th>
+              <th>성경 읽기 범위</th>
+              <th>확인</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>월요일</td>
+              <td>마태복음 21장 ~ 23장</td>
+              <td style="text-align:center;"><button type="button" class="btn-check-reading" onclick="toggleReadingDay(this)">미완료</button></td>
+            </tr>
+            <tr>
+              <td>화요일</td>
+              <td>마태복음 24장 ~ 26장</td>
+              <td style="text-align:center;"><button type="button" class="btn-check-reading" onclick="toggleReadingDay(this)">미완료</button></td>
+            </tr>
+            <tr>
+              <td>수요일</td>
+              <td>마태복음 27장 ~ 28장</td>
+              <td style="text-align:center;"><button type="button" class="btn-check-reading" onclick="toggleReadingDay(this)">미완료</button></td>
+            </tr>
+            <tr>
+              <td>목요일</td>
+              <td>마가복음 1장 ~ 5장</td>
+              <td style="text-align:center;"><button type="button" class="btn-check-reading" onclick="toggleReadingDay(this)">미완료</button></td>
+            </tr>
+            <tr>
+              <td>금요일</td>
+              <td>마가복음 6장 ~ 10장</td>
+              <td style="text-align:center;"><button type="button" class="btn-check-reading" onclick="toggleReadingDay(this)">미완료</button></td>
+            </tr>
+            <tr>
+              <td>토요일</td>
+              <td>마가복음 11장 ~ 15장</td>
+              <td style="text-align:center;"><button type="button" class="btn-check-reading" onclick="toggleReadingDay(this)">미완료</button></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- 금주의 성경 퀴즈 (10문항) -->
+        <div class="section-header" style="margin-top: var(--space-lg);">
+          <h3 class="section-title">금주의 성경 퀴즈 (10문항)</h3>
+          <span class="section-tag">말씀은 내 발에 등이요</span>
+        </div>
+        <p style="font-size: var(--text-sm); color: var(--color-subtext); margin-bottom: var(--space-md);">
+          이번 주 성경 퀴즈를 풀고 정답을 맞춰보세요. 보기를 선택한 후 하단의 <strong>[채점하기]</strong> 버튼을 누르시면 됩니다.
+        </p>
+
+        <div id="bibleQuizContainer" class="quiz-container">
+          <!-- Dynamically populated 10 questions -->
+        </div>
+
+        <div class="quiz-action-bar">
+          <button type="button" class="btn-submit-quiz" onclick="submitQuizAnswers()">
+            📝 답안 제출 및 채점하기
+          </button>
+        </div>
+
+        <div id="quizResultBox" style="display:none;"></div>
+
+      </section>
 
       <!-- Footer Info -->
       <footer class="bulletin-footer">
-        <p><strong>대한예수교장로회 그레이스교회</strong></p>
-        <p>서울시 은혜로 77 (우: 01234) · 교역자실: 02-123-4567 · 담임목사 이은혜</p>
-        <p style="margin-top: 6px;">Copyright © 2026 Grace Presbyterian Church. All rights reserved.</p>
+        <p><strong>대한예수교장로회 한영교회</strong></p>
+        <p>담임목사: 송선우 · 교회 대표전화: 02-123-4567</p>
+        <p style="margin-top: 4px;">Copyright © 2026 HANYOUNG PRESBYTERIAN CHURCH. All rights reserved.</p>
       </footer>
 
     </article>

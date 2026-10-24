@@ -1,5 +1,5 @@
 // ==========================================================================
-// admin-guard.js - Role Verification & Admin Dashboard Logic
+// admin-guard.js - HanYoung Church Admin Dashboard & Editor Logic
 // ==========================================================================
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -9,8 +9,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const pendingAlert = document.getElementById('pendingAlert');
   const adminPanel = document.getElementById('adminPanel');
   const usersTabBtn = document.getElementById('usersTabBtn');
-  const usersTabPane = document.getElementById('usersTabPane');
-  const editorTabPane = document.getElementById('editorTabPane');
 
   // Attach Google Login Button
   const btnGoogleLogin = document.getElementById('btnGoogleLogin');
@@ -47,6 +45,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       adminUserRoleBadge.textContent = getRoleLabel(user.role);
       adminUserRoleBadge.className = `user-badge badge-${user.role}`;
     }
+    if (btnLogout) btnLogout.style.display = 'inline-block';
 
     // Role-based Access Control
     if (user.role === 'pending') {
@@ -171,91 +170,34 @@ async function loadBulletinEditor() {
   }
 }
 
+window.loadPreviousWeekBulletin = async function() {
+  if (!confirm('현재 에디터에 지난주 주보 내용을 복사하여 불러오시겠습니까?')) return;
+  loadBulletinEditor();
+};
+
 function populateEditorForm(b) {
   if (!b) return;
 
   document.getElementById('editPublishDate').value = b.publish_date || '';
-  document.getElementById('editThemeVerse').value = b.theme_verse || '';
-  document.getElementById('editSermonTitle').value = b.sermon_title || '';
-  document.getElementById('editPreacher').value = b.preacher || '이은혜 담임목사';
-  document.getElementById('editScripture').value = b.scripture || '';
-  document.getElementById('editScriptureText').value = b.scripture_text || '';
-  document.getElementById('editChoirZion').value = b.choir_zion || '';
-  document.getElementById('editChoirEmmanuel').value = b.choir_emmanuel || '';
-  document.getElementById('editChoirHephzibah').value = b.choir_hephzibah || '';
-  document.getElementById('editIsPublished').checked = Boolean(b.is_published);
+  document.getElementById('editPreacher').value = b.pastor || b.preacher || '송선우 담임목사';
+  document.getElementById('editSermonTitle').value = b.title || b.sermon_title || '그리스도인의 삶의 자세';
+  document.getElementById('editScripture').value = b.sermon_scripture || b.scripture || '눅 19:1-10';
+  document.getElementById('editReadingWeek').value = b.bible_reading_week || '월~토: 마태복음 21장 ~ 마가복음 15장';
+  document.getElementById('editThemeVerse').value = b.theme_verse || '요한복음 14:17-18';
 
-  // Render Worship Flow list
-  renderWorshipOrderRows(b.order_of_worship || []);
+  document.getElementById('editChoirZion').value = b.choir_zion || '주의 은혜라';
+  document.getElementById('editChoirEmmanuel').value = b.choir_emmanuel || '권사 중심 은혜 찬양';
+  document.getElementById('editChoirHephzibah').value = b.choir_hephzibah || '수요 헌신 특송';
 
-  // Render Announcements list
+  // Announcements
   renderAnnouncementRows(b.announcements || []);
 
-  // Next prayers
-  const next = b.next_prayers || {};
-  document.getElementById('editNextDate').value = next.next_date || '';
-  document.getElementById('editNextPrayer1').value = next.prayer_1 || '';
-  document.getElementById('editNextPrayer2').value = next.prayer_2 || '';
-  document.getElementById('editNextFlower').value = next.flower || '';
-  document.getElementById('editNextKitchen').value = next.kitchen || '';
-  document.getElementById('editNextUsher').value = next.usher || '';
+  // Offering Records Parser
+  const offerings = b.offering_records || {};
+  document.getElementById('editTitheText').value = (offerings.tithe || []).join(', ');
+  document.getElementById('editThanksText').value = (offerings.thanksgiving || []).join(', ');
+  document.getElementById('editMissionText').value = (offerings.mission || []).join(', ');
 }
-
-function renderWorshipOrderRows(items) {
-  const container = document.getElementById('worshipOrderContainer');
-  if (!container) return;
-
-  container.innerHTML = items.map((item, idx) => `
-    <div class="dynamic-item-card" data-idx="${idx}">
-      <button type="button" class="btn-remove-row" onclick="removeWorshipRow(${idx})">✕</button>
-      <div class="form-grid form-grid-2">
-        <div class="form-group">
-          <label class="form-label">순서명 (예: 경배와 찬양, 성경봉독)</label>
-          <input type="text" class="form-input worship-title" value="${escapeHtml(item.title || '')}" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label">인도자 / 담당 (예: 다함께, 인도자)</label>
-          <input type="text" class="form-input worship-leader" value="${escapeHtml(item.leader || '')}">
-        </div>
-      </div>
-      <div class="form-group" style="margin-top:6px;">
-        <label class="form-label">세부 내용 / 찬송가 / 구절</label>
-        <input type="text" class="form-input worship-detail" value="${escapeHtml(item.detail || '')}">
-      </div>
-    </div>
-  `).join('');
-}
-
-window.addWorshipRow = function() {
-  const container = document.getElementById('worshipOrderContainer');
-  const count = container.children.length;
-  const div = document.createElement('div');
-  div.className = 'dynamic-item-card';
-  div.dataset.idx = count;
-  div.innerHTML = `
-    <button type="button" class="btn-remove-row" onclick="this.parentElement.remove()">✕</button>
-    <div class="form-grid form-grid-2">
-      <div class="form-group">
-        <label class="form-label">순서명</label>
-        <input type="text" class="form-input worship-title" required>
-      </div>
-      <div class="form-group">
-        <label class="form-label">인도자 / 담당</label>
-        <input type="text" class="form-input worship-leader" value="다함께">
-      </div>
-    </div>
-    <div class="form-group" style="margin-top:6px;">
-      <label class="form-label">세부 내용 / 찬송가 / 구절</label>
-      <input type="text" class="form-input worship-detail">
-    </div>
-  `;
-  container.appendChild(div);
-};
-
-window.removeWorshipRow = function(idx) {
-  const card = document.querySelector(`#worshipOrderContainer .dynamic-item-card[data-idx="${idx}"]`);
-  if (card) card.remove();
-};
 
 function renderAnnouncementRows(items) {
   const container = document.getElementById('announcementsContainer');
@@ -265,7 +207,7 @@ function renderAnnouncementRows(items) {
     <div class="dynamic-item-card" data-idx="${idx}">
       <button type="button" class="btn-remove-row" onclick="this.parentElement.remove()">✕</button>
       <div class="form-group" style="margin-bottom:6px;">
-        <label class="form-label">구분/분류 (예: 예배/모임, 찬양대, 봉사)</label>
+        <label class="form-label">구분/분류 (예: 환영, 성도소식, 봉사/섬김, 찬양대)</label>
         <input type="text" class="form-input announce-cat" value="${escapeHtml(item.category || '')}">
       </div>
       <div class="form-group">
@@ -284,7 +226,7 @@ window.addAnnouncementRow = function() {
     <button type="button" class="btn-remove-row" onclick="this.parentElement.remove()">✕</button>
     <div class="form-group" style="margin-bottom:6px;">
       <label class="form-label">구분/분류</label>
-      <input type="text" class="form-input announce-cat" value="교회 소식">
+      <input type="text" class="form-input announce-cat" value="성도소식">
     </div>
     <div class="form-group">
       <label class="form-label">광고 내용</label>
@@ -293,6 +235,14 @@ window.addAnnouncementRow = function() {
   `;
   container.appendChild(div);
 };
+
+function parseNames(text) {
+  if (!text) return [];
+  return text
+    .split(/[\n,]+/)
+    .map(s => s.trim())
+    .filter(Boolean);
+}
 
 /**
  * Handle Bulletin Save / Publish Form Submit
@@ -306,15 +256,6 @@ window.handleSaveBulletin = async function(e) {
     return;
   }
 
-  // Collect worship orders
-  const worshipRows = document.querySelectorAll('#worshipOrderContainer .dynamic-item-card');
-  const orderOfWorship = Array.from(worshipRows).map((row, i) => ({
-    order: i + 1,
-    title: row.querySelector('.worship-title')?.value.trim() || '',
-    leader: row.querySelector('.worship-leader')?.value.trim() || '',
-    detail: row.querySelector('.worship-detail')?.value.trim() || ''
-  })).filter(item => item.title);
-
   // Collect announcements
   const announceRows = document.querySelectorAll('#announcementsContainer .dynamic-item-card');
   const announcements = Array.from(announceRows).map(row => ({
@@ -322,26 +263,31 @@ window.handleSaveBulletin = async function(e) {
     content: row.querySelector('.announce-content')?.value.trim() || ''
   })).filter(item => item.content);
 
+  // Parse offerings
+  const offeringRecords = {
+    tithe: parseNames(document.getElementById('editTitheText').value),
+    thanksgiving: parseNames(document.getElementById('editThanksText').value),
+    mission: parseNames(document.getElementById('editMissionText').value),
+    special: currentEditingBulletin?.offering_records?.special || []
+  };
+
   const payload = {
     publish_date: publishDate,
-    theme_verse: document.getElementById('editThemeVerse').value.trim(),
+    title: document.getElementById('editSermonTitle').value.trim(),
     sermon_title: document.getElementById('editSermonTitle').value.trim(),
+    pastor: document.getElementById('editPreacher').value.trim(),
     preacher: document.getElementById('editPreacher').value.trim(),
+    sermon_scripture: document.getElementById('editScripture').value.trim(),
     scripture: document.getElementById('editScripture').value.trim(),
-    scripture_text: document.getElementById('editScriptureText').value.trim(),
+    bible_reading_week: document.getElementById('editReadingWeek').value.trim(),
+    theme_verse: document.getElementById('editThemeVerse').value.trim(),
     choir_zion: document.getElementById('editChoirZion').value.trim(),
     choir_emmanuel: document.getElementById('editChoirEmmanuel').value.trim(),
     choir_hephzibah: document.getElementById('editChoirHephzibah').value.trim(),
-    order_of_worship: orderOfWorship,
     announcements: announcements,
-    next_prayers: {
-      next_date: document.getElementById('editNextDate').value.trim(),
-      prayer_1: document.getElementById('editNextPrayer1').value.trim(),
-      prayer_2: document.getElementById('editNextPrayer2').value.trim(),
-      flower: document.getElementById('editNextFlower').value.trim(),
-      kitchen: document.getElementById('editNextKitchen').value.trim(),
-      usher: document.getElementById('editNextUsher').value.trim()
-    },
+    offering_records: offeringRecords,
+    service_orders: currentEditingBulletin?.service_orders || {},
+    bible_quiz: currentEditingBulletin?.bible_quiz || [],
     is_published: document.getElementById('editIsPublished').checked,
     updated_at: new Date().toISOString()
   };
@@ -354,7 +300,7 @@ window.handleSaveBulletin = async function(e) {
 
   try {
     await GraceClient.upsertBulletin(payload);
-    alert('주보가 성공적으로 저장 및 반영되었습니다!');
+    alert('한영교회 주보가 성공적으로 저장 및 발행되었습니다!');
   } catch (err) {
     console.error('Error saving bulletin:', err);
     alert('저장 실패: ' + err.message);

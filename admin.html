@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>그레이스 위클리 - 관리자 & 주보 편집 시스템</title>
+  <title>한영교회 스마트 주보 - 관리자 시스템</title>
   
   <link rel="icon" type="image/svg+xml" href="assets/emblem.svg">
   <link rel="stylesheet" href="css/typography.css">
@@ -18,8 +18,8 @@
   <!-- Admin Top Navbar -->
   <header class="admin-navbar">
     <a href="index.html" class="admin-brand">
-      <img src="assets/emblem.svg" alt="로고" width="24" height="24">
-      <span>그레이스 위클리 관리자</span>
+      <img src="assets/emblem.svg" alt="로고" width="26" height="26">
+      <span>한영교회 주보 관리 시스템</span>
     </a>
     <div id="adminUserArea" class="admin-user-info">
       <span id="adminUserName"></span>
@@ -40,12 +40,12 @@
     <section id="loggedOutSection" style="display:none;">
       <div class="auth-box-card">
         <div style="margin-bottom: 1rem;">
-          <img src="assets/emblem.svg" alt="엠블럼" width="56" height="56">
+          <img src="assets/emblem.svg" alt="한영교회 엠블럼" width="64" height="64">
         </div>
-        <h2>관리자 시스템 로그인</h2>
+        <h2>한영교회 관리자 로그인</h2>
         <p>
-          주보 작성, 수정 및 성도 승인 관리를 위해<br>
-          교회 승인 구글 계정으로 로그인해 주세요.
+          주보 작성, 헌금 명단 입력 및 사용자 승인 관리를 위해<br>
+          승인된 구글 계정으로 로그인해 주세요.
         </p>
 
         <button type="button" id="btnGoogleLogin" class="btn-google-login">
@@ -59,7 +59,7 @@
         </button>
 
         <div style="margin-top: 1.5rem; font-size: 0.825rem; color: #8A857B;">
-          * 최초 로그인 시에는 '승인 대기' 상태로 등록되며, 관리자 승인 후 권한이 부여됩니다.
+          * 최초 가입 시에는 보안을 위해 '승인 대기' 상태로 등록되며, 슈퍼 관리자가 승인한 후 편집 권한이 부여됩니다.
         </div>
       </div>
     </section>
@@ -72,7 +72,7 @@
         <h3>⚠️ 관리자 승인 대기 중 안내</h3>
         <p>
           현재 귀하의 계정은 <strong>승인 대기(Pending)</strong> 상태입니다.<br>
-          주보 작성 및 관리 권한을 부여받으시려면 <strong>교회 사무실(교역자실) 또는 최고관리자</strong>에게 승인을 요청해 주세요.
+          주보 작성 및 편집 권한을 부여받으시려면 <strong>한영교회 교역자실 또는 최고 관리자</strong>에게 승인을 요청해 주세요.
         </p>
       </div>
 
@@ -96,7 +96,8 @@
             <!-- 1. 기본 정보 및 설교 -->
             <div class="admin-card">
               <div class="admin-card-header">
-                <h3 class="admin-card-title">1. 주보 기본 정보 및 설교</h3>
+                <h3 class="admin-card-title">1. 설교 및 기본 정보</h3>
+                <button type="button" class="btn-pill" onclick="loadPreviousWeekBulletin()">📋 지난주 주보 불러오기</button>
               </div>
 
               <div class="form-grid form-grid-2">
@@ -106,70 +107,58 @@
                 </div>
                 <div class="form-group">
                   <label class="form-label" for="editPreacher">설교자</label>
-                  <input type="text" id="editPreacher" class="form-input" value="이은혜 담임목사">
+                  <input type="text" id="editPreacher" class="form-input" value="송선우 담임목사">
                 </div>
               </div>
 
               <div class="form-group" style="margin-top: 1rem;">
                 <label class="form-label" for="editSermonTitle">설교 제목 *</label>
-                <input type="text" id="editSermonTitle" class="form-input" placeholder="말씀 위에 든든히 서가는 은혜의 공동체" required>
+                <input type="text" id="editSermonTitle" class="form-input" placeholder="그리스도인의 삶의 자세" required>
               </div>
 
               <div class="form-grid form-grid-2" style="margin-top: 1rem;">
                 <div class="form-group">
                   <label class="form-label" for="editScripture">설교 본문 장절 *</label>
-                  <input type="text" id="editScripture" class="form-input" placeholder="골로새서 2장 6절 ~ 7절" required>
+                  <input type="text" id="editScripture" class="form-input" placeholder="눅 19:1-10" required>
                 </div>
                 <div class="form-group">
-                  <label class="form-label" for="editThemeVerse">이 주의 묵상 구절</label>
-                  <input type="text" id="editThemeVerse" class="form-input" placeholder="골로새서 2:6-7 말씀">
+                  <label class="form-label" for="editReadingWeek">금주의 성경일독 범위</label>
+                  <input type="text" id="editReadingWeek" class="form-input" placeholder="월~토: 마태복음 21장 ~ 마가복음 15장">
                 </div>
               </div>
 
               <div class="form-group" style="margin-top: 1rem;">
-                <label class="form-label" for="editScriptureText">설교 본문 말씀 전체 (성도 읽기용)</label>
-                <textarea id="editScriptureText" class="form-textarea" rows="3" placeholder="성경 본문 구절 전문을 입력하세요."></textarea>
+                <label class="form-label" for="editThemeVerse">교회 표어 말씀 구절</label>
+                <input type="text" id="editThemeVerse" class="form-input" placeholder="요한복음 14:17-18 말씀">
               </div>
             </div>
 
             <!-- 2. 찬양대 특화 섹션 -->
             <div class="admin-card">
               <div class="admin-card-header">
-                <h3 class="admin-card-title">2. 찬양대 찬양 곡명</h3>
+                <h3 class="admin-card-title">2. 찬양대 조직 및 찬양곡</h3>
               </div>
 
               <div class="form-group">
-                <label class="form-label" for="editChoirZion">주일 2부 본예배: 시온 찬양대 곡명</label>
-                <input type="text" id="editChoirZion" class="form-input" placeholder="주의 은혜라 (작곡: 손경민)">
+                <label class="form-label" for="editChoirZion">주일 2부(11:00) 대예배: 시온 찬양대 곡명 (지휘 김남규, 반주 문제철, 대장 조익한)</label>
+                <input type="text" id="editChoirZion" class="form-input" placeholder="주의 은혜라">
               </div>
 
               <div class="form-group" style="margin-top: 1rem;">
-                <label class="form-label" for="editChoirEmmanuel">주일 1부 예배: 임마누엘 찬양대 (권사회) 곡명</label>
-                <input type="text" id="editChoirEmmanuel" class="form-input" placeholder="참 좋으신 주님 (작곡: 김기영)">
+                <label class="form-label" for="editChoirEmmanuel">주일 오후(14:30) 찬양예배: 임마누엘 찬양대 곡명 (권사 중심 찬양 / 반주 최신아, 대장 김태형)</label>
+                <input type="text" id="editChoirEmmanuel" class="form-input" placeholder="권사 중심 은혜 찬양">
               </div>
 
               <div class="form-group" style="margin-top: 1rem;">
-                <label class="form-label" for="editChoirHephzibah">수요기도회: 헵시바 찬양대 특송 곡명</label>
-                <input type="text" id="editChoirHephzibah" class="form-input" placeholder="나의 힘이 되신 여호와여 (작곡: 김석균)">
+                <label class="form-label" for="editChoirHephzibah">수요 성서연구(19:30): 헵시바 찬양대 특송 곡명 (지휘 신광은, 반주 이지혜, 대장 윤영임)</label>
+                <input type="text" id="editChoirHephzibah" class="form-input" placeholder="수요 헌신 특송">
               </div>
             </div>
 
-            <!-- 3. 예배 순서 -->
+            <!-- 3. 교회 소식 및 광고 -->
             <div class="admin-card">
               <div class="admin-card-header">
-                <h3 class="admin-card-title">3. 주일 대예배 순서표</h3>
-                <button type="button" class="btn-add-item" onclick="addWorshipRow()">+ 순서 추가</button>
-              </div>
-
-              <div id="worshipOrderContainer">
-                <!-- Dynamically generated rows -->
-              </div>
-            </div>
-
-            <!-- 4. 교회 소식 및 광고 -->
-            <div class="admin-card">
-              <div class="admin-card-header">
-                <h3 class="admin-card-title">4. 교회 소식 및 광고</h3>
+                <h3 class="admin-card-title">3. 교회 소식 및 광고</h3>
                 <button type="button" class="btn-add-item" onclick="addAnnouncementRow()">+ 광고 추가</button>
               </div>
 
@@ -178,50 +167,32 @@
               </div>
             </div>
 
-            <!-- 5. 다음 주 섬김 안내 -->
+            <!-- 4. 향기로운 예물 (헌금자 명단 텍스트 붙여넣기 자동 파싱) -->
             <div class="admin-card">
               <div class="admin-card-header">
-                <h3 class="admin-card-title">5. 다음 주 섬김 담당자</h3>
+                <h3 class="admin-card-title">4. 헌금자 명단 입력 (쉼표 또는 공백 구분)</h3>
               </div>
 
-              <div class="form-grid form-grid-2">
-                <div class="form-group">
-                  <label class="form-label" for="editNextDate">다음 주일 날짜</label>
-                  <input type="date" id="editNextDate" class="form-input">
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="editNextFlower">강단 헌화</label>
-                  <input type="text" id="editNextFlower" class="form-input">
-                </div>
+              <div class="form-group">
+                <label class="form-label" for="editTitheText">십일조 헌금자 명단</label>
+                <textarea id="editTitheText" class="form-textarea" rows="2" placeholder="송선우, 이태호, 최태선, 김기동, 예민구, 김재형..."></textarea>
               </div>
 
-              <div class="form-grid form-grid-2" style="margin-top: 1rem;">
-                <div class="form-group">
-                  <label class="form-label" for="editNextPrayer1">1부 대표기도</label>
-                  <input type="text" id="editNextPrayer1" class="form-input">
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="editNextPrayer2">2부 대표기도</label>
-                  <input type="text" id="editNextPrayer2" class="form-input">
-                </div>
+              <div class="form-group" style="margin-top: 1rem;">
+                <label class="form-label" for="editThanksText">감사 헌금자 명단</label>
+                <textarea id="editThanksText" class="form-textarea" rows="2" placeholder="송선우, 이태호, 김기동, 예민구, 문태응..."></textarea>
               </div>
 
-              <div class="form-grid form-grid-2" style="margin-top: 1rem;">
-                <div class="form-group">
-                  <label class="form-label" for="editNextKitchen">식당 애찬 봉사</label>
-                  <input type="text" id="editNextKitchen" class="form-input">
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="editNextUsher">예배 및 안내 위원</label>
-                  <input type="text" id="editNextUsher" class="form-input">
-                </div>
+              <div class="form-group" style="margin-top: 1rem;">
+                <label class="form-label" for="editMissionText">선교 헌금 & 기관</label>
+                <textarea id="editMissionText" class="form-textarea" rows="2" placeholder="이태호, 최태선, 김기동, 청년회, 제1여전도회..."></textarea>
               </div>
             </div>
 
             <!-- Sticky Action Bar -->
             <div class="editor-action-bar">
               <label class="publish-toggle-wrap">
-                <input type="checkbox" id="editIsPublished" style="width: 18px; height: 18px;">
+                <input type="checkbox" id="editIsPublished" checked style="width: 18px; height: 18px;">
                 <span>성도에게 즉시 공개 (Publish)</span>
               </label>
 

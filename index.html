@@ -27,7 +27,7 @@
   <nav class="top-accessibility-bar" aria-label="주보 보조 메뉴">
     <div class="top-bar-left">
       <div class="top-bar-church-badge">
-        <img src="assets/emblem.svg" alt="교회 로고" width="20" height="20">
+        <img src="assets/emblem.svg" alt="교회 로고" width="22" height="22">
         <span>그레이스교회 주보</span>
       </div>
     </div>
@@ -55,7 +55,7 @@
         <div class="cover-meta-row">
           <span>제 32권 43호</span>
           <span id="bulletinDateDisplay">2026년 10월 25일 주일</span>
-          <span>주일 대예배 1부 09:00 / 2부 11:00</span>
+          <span>주일 1부 09:00 / 2부 11:00</span>
         </div>
 
         <div class="emblem-wrapper">
@@ -65,7 +65,7 @@
         <h1 class="church-title-kr">그레이스교회</h1>
         <p class="church-title-en">Grace Presbyterian Church</p>
 
-        <!-- Annual Church Theme -->
+        <!-- Annual Church Theme Ribbon -->
         <div class="year-theme-box">
           <div class="year-theme-label">2026년도 교회 표어</div>
           <div class="year-theme-text">"말씀 위에 든든히 서가는 은혜의 공동체" (골 2:6~7)</div>
@@ -97,7 +97,7 @@
 
             <table class="worship-table">
               <tbody id="worshipFlowTableBody">
-                <!-- Dynamically populated by app.js -->
+                <!-- Dynamically populated by app.js with colored row highlights & badges -->
               </tbody>
             </table>
           </section>
@@ -110,25 +110,25 @@
             </div>
 
             <div class="choir-highlight-box">
-              <!-- 주일 2부: 시온 찬양대 -->
-              <div class="choir-item">
-                <span class="choir-badge badge-zion">주일 2부 대예배 · 시온 찬양대</span>
+              <!-- 주일 2부: 시온 찬양대 (Royal Navy Theme) -->
+              <div class="choir-item choir-item-zion">
+                <span class="choir-badge">주일 2부 대예배 · 시온 찬양대</span>
                 <div class="choir-song-title" id="choirZionTitle">
                   주의 은혜라 (작곡: 손경민)
                 </div>
               </div>
 
-              <!-- 주일 1부: 임마누엘 찬양대 -->
-              <div class="choir-item">
-                <span class="choir-badge badge-emmanuel">주일 1부 예배 · 임마누엘 찬양대 (권사회)</span>
+              <!-- 주일 1부: 임마누엘 찬양대 (Liturgical Wine Theme) -->
+              <div class="choir-item choir-item-emmanuel">
+                <span class="choir-badge">주일 1부 예배 · 임마누엘 찬양대 (권사회)</span>
                 <div class="choir-song-title" id="choirEmmanuelTitle">
                   참 좋으신 주님 (작곡: 김기영)
                 </div>
               </div>
 
-              <!-- 수요예배: 헵시바 찬양대 -->
-              <div class="choir-item">
-                <span class="choir-badge badge-hephzibah">수요기도회 특송 · 헵시바 찬양대</span>
+              <!-- 수요예배: 헵시바 찬양대 (Golden Amber Theme) -->
+              <div class="choir-item choir-item-hephzibah">
+                <span class="choir-badge">수요기도회 특송 · 헵시바 찬양대</span>
                 <div class="choir-song-title" id="choirHephzibahTitle">
                   나의 힘이 되신 여호와여 (작곡: 김석균)
                 </div>
@@ -179,7 +179,7 @@
             </div>
 
             <ul class="announcement-list" id="announcementsList">
-              <!-- Dynamically populated by app.js -->
+              <!-- Dynamically populated by app.js with category color badges -->
             </ul>
           </section>
 
@@ -191,11 +191,11 @@
             </div>
 
             <div class="directory-grid">
-              <div class="directory-card">
+              <div class="directory-card directory-card-pastor">
                 <div class="directory-role">담임목사</div>
                 <div class="directory-names">이은혜 목사</div>
               </div>
-              <div class="directory-card">
+              <div class="directory-card directory-card-elders">
                 <div class="directory-role">시무장로 (6인)</div>
                 <div class="directory-names">김진호 · 이원철 · 박상훈<br>정영근 · 최선호 · 한만수</div>
               </div>
@@ -219,19 +219,31 @@
 
             <div class="ministry-schedule-list">
               <div class="ministry-row">
-                <span class="ministry-name">주일학교 (꿈땅)</span>
-                <span class="ministry-meta">주일 11:00 (2층 소예배실 · 20명)</span>
+                <div>
+                  <span class="dept-badge dept-children">어린이</span>
+                  <span class="ministry-name">주일학교 (꿈땅)</span>
+                </div>
+                <span class="ministry-meta">주일 11:00 · 소예배실 (20명)</span>
               </div>
               <div class="ministry-row">
-                <span class="ministry-name">중고등부 (청소년)</span>
-                <span class="ministry-meta">주일 11:00 (3층 교육관 · 20명)</span>
+                <div>
+                  <span class="dept-badge dept-youth">청소년</span>
+                  <span class="ministry-name">중고등부</span>
+                </div>
+                <span class="ministry-meta">주일 11:00 · 3층 교육관 (20명)</span>
               </div>
               <div class="ministry-row">
-                <span class="ministry-name">청년부 (그레이스 유스)</span>
-                <span class="ministry-meta">주일 13:30 (지하 비전홀 · 20명)</span>
+                <div>
+                  <span class="dept-badge dept-youngadult">청년</span>
+                  <span class="ministry-name">청년부 (그레이스 유스)</span>
+                </div>
+                <span class="ministry-meta">주일 13:30 · 지하 비전홀 (20명)</span>
               </div>
               <div class="ministry-row">
-                <span class="ministry-name">장년 구역 모임</span>
+                <div>
+                  <span class="dept-badge dept-adult">장년</span>
+                  <span class="ministry-name">장년 구역 모임</span>
+                </div>
                 <span class="ministry-meta">매주 금/주일 각 구역 처소</span>
               </div>
             </div>
@@ -248,7 +260,7 @@
               <tbody>
                 <tr>
                   <th>대표기도</th>
-                  <td>1부: <span id="nextPrayer1">최선호 권사</span> / 2부: <span id="nextPrayer2">이원철 장로</span></td>
+                  <td>1부: <strong id="nextPrayer1">최선호 권사</strong> / 2부: <strong id="nextPrayer2">이원철 장로</strong></td>
                 </tr>
                 <tr>
                   <th>강단 헌화</th>
@@ -270,7 +282,7 @@
           <section aria-labelledby="offering-title">
             <div class="offering-box">
               <div class="offering-title" id="offering-title">온라인 헌금 안내</div>
-              <p class="offering-note">정성껏 준비하신 예물을 온라인으로 봉헌하실 수 있습니다.</p>
+              <p class="offering-note">정성껏 구별하신 예물을 온라인으로 봉헌하실 수 있습니다.</p>
               
               <div class="offering-account-row">
                 <span class="account-number-text">

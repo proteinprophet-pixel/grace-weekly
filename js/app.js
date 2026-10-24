@@ -1,5 +1,6 @@
 // ==========================================================================
 // app.js - Congregation Mobile Bulletin Viewer Logic
+// Enhanced with rich liturgical styling & dynamic color tags
 // ==========================================================================
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -151,6 +152,42 @@ async function loadBulletinContent() {
   }
 }
 
+function getLeaderBadgeHtml(leader) {
+  if (!leader) return '';
+  const l = leader.trim();
+  if (l.includes('다함께')) {
+    return `<span class="leader-badge badge-all">${escapeHtml(l)}</span>`;
+  }
+  if (l.includes('인도자') || l.includes('목사')) {
+    return `<span class="leader-badge badge-pastor">${escapeHtml(l)}</span>`;
+  }
+  if (l.includes('찬양대')) {
+    return `<span class="leader-badge badge-choir">${escapeHtml(l)}</span>`;
+  }
+  if (l.includes('장로') || l.includes('권사') || l.includes('집사')) {
+    return `<span class="leader-badge badge-elder">${escapeHtml(l)}</span>`;
+  }
+  return `<span class="leader-badge">${escapeHtml(l)}</span>`;
+}
+
+function getWorshipRowClass(title) {
+  if (!title) return '';
+  if (title.includes('말씀') || title.includes('설교')) return 'row-highlight-sermon';
+  if (title.includes('찬양대')) return 'row-highlight-choir';
+  if (title.includes('축도')) return 'row-highlight-benediction';
+  return '';
+}
+
+function getCategoryBadgeClass(category) {
+  if (!category) return 'cat-general';
+  if (category.includes('예배') || category.includes('모임')) return 'cat-worship';
+  if (category.includes('찬양대')) return 'cat-choir';
+  if (category.includes('수요')) return 'cat-wednesday';
+  if (category.includes('봉사') || category.includes('식당')) return 'cat-service';
+  if (category.includes('새가족')) return 'cat-newcomer';
+  return 'cat-general';
+}
+
 function renderBulletin(b) {
   if (!b) return;
 
@@ -170,16 +207,20 @@ function renderBulletin(b) {
   setText('sermonScriptureDisplay', b.scripture || '골로새서 2장 6절 ~ 7절');
   setText('scriptureBody', b.scripture_text || '말씀을 묵상하며 은혜를 나눕니다.');
 
-  // 4. Worship Flow
+  // 4. Worship Flow with Colored Row Highlights and Badges
   const worshipContainer = document.getElementById('worshipFlowTableBody');
   if (worshipContainer && Array.isArray(b.order_of_worship)) {
-    worshipContainer.innerHTML = b.order_of_worship.map(item => `
-      <tr>
-        <td class="col-order-title">${escapeHtml(item.title)}</td>
-        <td class="col-order-leader">${escapeHtml(item.leader || '')}</td>
-        <td class="col-order-detail">${escapeHtml(item.detail || '')}</td>
-      </tr>
-    `).join('');
+    worshipContainer.innerHTML = b.order_of_worship.map(item => {
+      const rowClass = getWorshipRowClass(item.title);
+      const leaderBadge = getLeaderBadgeHtml(item.leader);
+      return `
+        <tr class="${rowClass}">
+          <td class="col-order-title">${escapeHtml(item.title)}</td>
+          <td class="col-order-leader">${leaderBadge}</td>
+          <td class="col-order-detail">${escapeHtml(item.detail || '')}</td>
+        </tr>
+      `;
+    }).join('');
   }
 
   // 5. Special Choir Highlights
@@ -187,15 +228,18 @@ function renderBulletin(b) {
   setText('choirZionTitle', b.choir_zion || '주의 은혜라 - 2부 대예배');
   setText('choirHephzibahTitle', b.choir_hephzibah || '나의 힘이 되신 여호와여 - 수요예배 특송');
 
-  // 6. Announcements
+  // 6. Announcements with Distinct Color Categories
   const announceContainer = document.getElementById('announcementsList');
   if (announceContainer && Array.isArray(b.announcements)) {
-    announceContainer.innerHTML = b.announcements.map(a => `
-      <li class="announcement-item">
-        <span class="announcement-badge">${escapeHtml(a.category || '알림')}</span>
-        <div class="announcement-content">${escapeHtml(a.content)}</div>
-      </li>
-    `).join('');
+    announceContainer.innerHTML = b.announcements.map(a => {
+      const catClass = getCategoryBadgeClass(a.category);
+      return `
+        <li class="announcement-item">
+          <span class="announcement-badge ${catClass}">${escapeHtml(a.category || '알림')}</span>
+          <div class="announcement-content">${escapeHtml(a.content)}</div>
+        </li>
+      `;
+    }).join('');
   }
 
   // 7. Next Week Prayers & Service

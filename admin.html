@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>그레이스 위클리 - 관리자 & 주보 편집 시스템</title>
+  
+  <link rel="icon" type="image/svg+xml" href="assets/emblem.svg">
+  <link rel="stylesheet" href="css/typography.css">
+  <link rel="stylesheet" href="css/bulletin.css">
+  <link rel="stylesheet" href="css/admin.css">
+
+  <!-- Supabase CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="admin-body">
+
+  <!-- Admin Top Navbar -->
+  <header class="admin-navbar">
+    <a href="index.html" class="admin-brand">
+      <img src="assets/emblem.svg" alt="로고" width="24" height="24">
+      <span>그레이스 위클리 관리자</span>
+    </a>
+    <div id="adminUserArea" class="admin-user-info">
+      <span id="adminUserName"></span>
+      <span id="adminUserRoleBadge" class="user-badge"></span>
+      <button type="button" id="btnLogout" class="btn-admin-logout" style="display:none;">로그아웃</button>
+      <a href="index.html" class="btn-admin-logout" style="text-decoration:none;">주보 보기 ↗</a>
+    </div>
+  </header>
+
+  <main class="admin-container">
+
+    <!-- Loading State -->
+    <div id="authStateLoading" style="text-align:center; padding: 4rem 1rem;">
+      <p style="font-size: 1.1rem; color: #5A605B;">인증 상태를 확인하고 있습니다...</p>
+    </div>
+
+    <!-- 1. Logged Out State: Google Login Card -->
+    <section id="loggedOutSection" style="display:none;">
+      <div class="auth-box-card">
+        <div style="margin-bottom: 1rem;">
+          <img src="assets/emblem.svg" alt="엠블럼" width="56" height="56">
+        </div>
+        <h2>관리자 시스템 로그인</h2>
+        <p>
+          주보 작성, 수정 및 성도 승인 관리를 위해<br>
+          교회 승인 구글 계정으로 로그인해 주세요.
+        </p>
+
+        <button type="button" id="btnGoogleLogin" class="btn-google-login">
+          <svg width="20" height="20" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          Google 계정으로 로그인
+        </button>
+
+        <div style="margin-top: 1.5rem; font-size: 0.825rem; color: #8A857B;">
+          * 최초 로그인 시에는 '승인 대기' 상태로 등록되며, 관리자 승인 후 권한이 부여됩니다.
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Logged In State -->
+    <div id="loggedInSection" style="display:none;">
+
+      <!-- Pending Notification Modal / Banner -->
+      <div id="pendingAlert" class="pending-alert-banner" style="display:none;">
+        <h3>⚠️ 관리자 승인 대기 중 안내</h3>
+        <p>
+          현재 귀하의 계정은 <strong>승인 대기(Pending)</strong> 상태입니다.<br>
+          주보 작성 및 관리 권한을 부여받으시려면 <strong>교회 사무실(교역자실) 또는 최고관리자</strong>에게 승인을 요청해 주세요.
+        </p>
+      </div>
+
+      <!-- Main Admin Panel (Visible only to Editor or Admin) -->
+      <div id="adminPanel" style="display:none;">
+
+        <!-- Navigation Tabs -->
+        <nav class="admin-nav-tabs" aria-label="관리자 서브 메뉴">
+          <button type="button" id="editorTabBtn" class="tab-btn active" onclick="switchAdminTab('editor')">
+            📝 주보 작성 및 편집
+          </button>
+          <button type="button" id="usersTabBtn" class="tab-btn" onclick="switchAdminTab('users')" style="display:none;">
+            👥 사용자 승인 관리 (Admin)
+          </button>
+        </nav>
+
+        <!-- Tab 1: 주보 작성 및 편집 -->
+        <section id="editorTabPane" class="tab-pane" style="display:block;">
+          <form id="bulletinEditorForm" onsubmit="handleSaveBulletin(event)">
+
+            <!-- 1. 기본 정보 및 설교 -->
+            <div class="admin-card">
+              <div class="admin-card-header">
+                <h3 class="admin-card-title">1. 주보 기본 정보 및 설교</h3>
+              </div>
+
+              <div class="form-grid form-grid-2">
+                <div class="form-group">
+                  <label class="form-label" for="editPublishDate">발행 일자 (주일 날짜) *</label>
+                  <input type="date" id="editPublishDate" class="form-input" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="editPreacher">설교자</label>
+                  <input type="text" id="editPreacher" class="form-input" value="이은혜 담임목사">
+                </div>
+              </div>
+
+              <div class="form-group" style="margin-top: 1rem;">
+                <label class="form-label" for="editSermonTitle">설교 제목 *</label>
+                <input type="text" id="editSermonTitle" class="form-input" placeholder="말씀 위에 든든히 서가는 은혜의 공동체" required>
+              </div>
+
+              <div class="form-grid form-grid-2" style="margin-top: 1rem;">
+                <div class="form-group">
+                  <label class="form-label" for="editScripture">설교 본문 장절 *</label>
+                  <input type="text" id="editScripture" class="form-input" placeholder="골로새서 2장 6절 ~ 7절" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="editThemeVerse">이 주의 묵상 구절</label>
+                  <input type="text" id="editThemeVerse" class="form-input" placeholder="골로새서 2:6-7 말씀">
+                </div>
+              </div>
+
+              <div class="form-group" style="margin-top: 1rem;">
+                <label class="form-label" for="editScriptureText">설교 본문 말씀 전체 (성도 읽기용)</label>
+                <textarea id="editScriptureText" class="form-textarea" rows="3" placeholder="성경 본문 구절 전문을 입력하세요."></textarea>
+              </div>
+            </div>
+
+            <!-- 2. 찬양대 특화 섹션 -->
+            <div class="admin-card">
+              <div class="admin-card-header">
+                <h3 class="admin-card-title">2. 찬양대 찬양 곡명</h3>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="editChoirZion">주일 2부 본예배: 시온 찬양대 곡명</label>
+                <input type="text" id="editChoirZion" class="form-input" placeholder="주의 은혜라 (작곡: 손경민)">
+              </div>
+
+              <div class="form-group" style="margin-top: 1rem;">
+                <label class="form-label" for="editChoirEmmanuel">주일 1부 예배: 임마누엘 찬양대 (권사회) 곡명</label>
+                <input type="text" id="editChoirEmmanuel" class="form-input" placeholder="참 좋으신 주님 (작곡: 김기영)">
+              </div>
+
+              <div class="form-group" style="margin-top: 1rem;">
+                <label class="form-label" for="editChoirHephzibah">수요기도회: 헵시바 찬양대 특송 곡명</label>
+                <input type="text" id="editChoirHephzibah" class="form-input" placeholder="나의 힘이 되신 여호와여 (작곡: 김석균)">
+              </div>
+            </div>
+
+            <!-- 3. 예배 순서 -->
+            <div class="admin-card">
+              <div class="admin-card-header">
+                <h3 class="admin-card-title">3. 주일 대예배 순서표</h3>
+                <button type="button" class="btn-add-item" onclick="addWorshipRow()">+ 순서 추가</button>
+              </div>
+
+              <div id="worshipOrderContainer">
+                <!-- Dynamically generated rows -->
+              </div>
+            </div>
+
+            <!-- 4. 교회 소식 및 광고 -->
+            <div class="admin-card">
+              <div class="admin-card-header">
+                <h3 class="admin-card-title">4. 교회 소식 및 광고</h3>
+                <button type="button" class="btn-add-item" onclick="addAnnouncementRow()">+ 광고 추가</button>
+              </div>
+
+              <div id="announcementsContainer">
+                <!-- Dynamically generated rows -->
+              </div>
+            </div>
+
+            <!-- 5. 다음 주 섬김 안내 -->
+            <div class="admin-card">
+              <div class="admin-card-header">
+                <h3 class="admin-card-title">5. 다음 주 섬김 담당자</h3>
+              </div>
+
+              <div class="form-grid form-grid-2">
+                <div class="form-group">
+                  <label class="form-label" for="editNextDate">다음 주일 날짜</label>
+                  <input type="date" id="editNextDate" class="form-input">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="editNextFlower">강단 헌화</label>
+                  <input type="text" id="editNextFlower" class="form-input">
+                </div>
+              </div>
+
+              <div class="form-grid form-grid-2" style="margin-top: 1rem;">
+                <div class="form-group">
+                  <label class="form-label" for="editNextPrayer1">1부 대표기도</label>
+                  <input type="text" id="editNextPrayer1" class="form-input">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="editNextPrayer2">2부 대표기도</label>
+                  <input type="text" id="editNextPrayer2" class="form-input">
+                </div>
+              </div>
+
+              <div class="form-grid form-grid-2" style="margin-top: 1rem;">
+                <div class="form-group">
+                  <label class="form-label" for="editNextKitchen">식당 애찬 봉사</label>
+                  <input type="text" id="editNextKitchen" class="form-input">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="editNextUsher">예배 및 안내 위원</label>
+                  <input type="text" id="editNextUsher" class="form-input">
+                </div>
+              </div>
+            </div>
+
+            <!-- Sticky Action Bar -->
+            <div class="editor-action-bar">
+              <label class="publish-toggle-wrap">
+                <input type="checkbox" id="editIsPublished" style="width: 18px; height: 18px;">
+                <span>성도에게 즉시 공개 (Publish)</span>
+              </label>
+
+              <div style="display: flex; gap: 10px;">
+                <a href="index.html" target="_blank" class="btn-pill" style="text-decoration:none; padding: 10px 18px; font-size: 0.95rem;">
+                  주보 미리보기 ↗
+                </a>
+                <button type="submit" id="btnSaveBulletin" class="btn-save-bulletin">
+                  주보 저장 및 발행
+                </button>
+              </div>
+            </div>
+
+          </form>
+        </section>
+
+        <!-- Tab 2: 사용자 승인 관리 (Admin Only) -->
+        <section id="usersTabPane" class="tab-pane" style="display:none;">
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <div>
+                <h3 class="admin-card-title">사용자 권한 및 가입 승인</h3>
+                <p style="font-size: 0.85rem; color: #5A605B; margin-top: 4px;">
+                  구글 계정으로 로그인한 교직원 및 봉사자의 권한을 변경합니다.
+                </p>
+              </div>
+              <button type="button" class="btn-pill" onclick="loadUserManagementTable()">새로고침 ↻</button>
+            </div>
+
+            <div style="overflow-x: auto;">
+              <table class="user-table">
+                <thead>
+                  <tr>
+                    <th>이름</th>
+                    <th>이메일</th>
+                    <th>현재 권한</th>
+                    <th>가입일</th>
+                    <th>권한 변경 관리</th>
+                  </tr>
+                </thead>
+                <tbody id="userTableBody">
+                  <!-- Dynamically populated by admin-guard.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- JavaScript Modules -->
+  <script src="js/supabaseClient.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/admin-guard.js"></script>
+</body>
+</html>

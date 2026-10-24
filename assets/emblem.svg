@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" fill="none">
+  <!-- Outer subtle circular halo -->
+  <circle cx="60" cy="60" r="54" stroke="#4A5D4E" stroke-width="1.5" stroke-dasharray="2 3" opacity="0.6"/>
+  <circle cx="60" cy="60" r="50" stroke="#4A5D4E" stroke-width="0.75" opacity="0.4"/>
+  
+  <!-- Classic Church Cross with flared serif terminals -->
+  <path d="M57 16 C57 14 63 14 63 16 L63 42 L88 42 C90 42 90 48 88 48 L63 48 L63 98 C63 100 57 100 57 98 L57 48 L32 48 C30 48 30 42 32 42 L57 42 Z" 
+        fill="#2D3E50" stroke="#2D3E50" stroke-width="1.2" stroke-linejoin="round"/>
+        
+  <!-- Subtle Olive branch / Grace leaves at base -->
+  <path d="M42 96 C48 90 54 94 60 97 C66 94 72 90 78 96 C72 101 66 99 60 98 C54 99 48 101 42 96 Z" 
+        fill="#4A5D4E" opacity="0.85"/>
+        
+  <!-- Delicate center gold cross point -->
+  <circle cx="60" cy="45" r="2.5" fill="#9C7D46"/>
+</svg>

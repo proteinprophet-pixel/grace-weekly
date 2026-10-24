@@ -1,0 +1,78 @@
+/* ==========================================================================
+   Typography.css - Warm Editorial Style for Grace Weekly
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&family=Pretendard:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Font Families */
+  --font-serif: 'Noto Serif KR', 'KoPubWorldBatang', Georgia, serif;
+  --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif;
+  
+  /* Font Sizes - Standard Senior Friendly (17-18px base) */
+  --text-xs: 0.8125rem;   /* 13px */
+  --text-sm: 0.9375rem;   /* 15px */
+  --text-base: 1.125rem;  /* 18px */
+  --text-lg: 1.25rem;     /* 20px */
+  --text-xl: 1.4375rem;   /* 23px */
+  --text-2xl: 1.75rem;    /* 28px */
+  --text-3xl: 2.125rem;   /* 34px */
+  
+  /* Line Heights */
+  --leading-tight: 1.35;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.8;
+  --leading-loose: 2.0;
+
+  /* Font Weights */
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+}
+
+/* Large Text Mode for Seniors (큰 글씨 모드) */
+body.large-text-mode {
+  --text-xs: 0.9375rem;   /* 15px */
+  --text-sm: 1.0625rem;   /* 17px */
+  --text-base: 1.3125rem; /* 21px */
+  --text-lg: 1.5rem;      /* 24px */
+  --text-xl: 1.75rem;     /* 28px */
+  --text-2xl: 2.125rem;   /* 34px */
+  --text-3xl: 2.5rem;     /* 40px */
+  --leading-relaxed: 1.9;
+}
+
+/* Editorial Serif Headings */
+h1, h2, h3, h4, .font-serif, .editorial-heading {
+  font-family: var(--font-serif);
+  color: var(--color-navy);
+  font-feature-settings: "palt" 1;
+  letter-spacing: -0.025em;
+  word-break: keep-all;
+}
+
+/* Body and UI Sans */
+body, button, input, select, textarea, .font-sans {
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  line-height: var(--leading-relaxed);
+  word-break: keep-all;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.sub-headline {
+  font-size: var(--text-sm);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-sage);
+  font-weight: var(--fw-semibold);
+}
+
+.scripture-verse {
+  font-family: var(--font-serif);
+  font-size: var(--text-base);
+  line-height: var(--leading-loose);
+  color: var(--color-text);
+  font-style: normal;
+}
